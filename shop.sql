@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
--- 主机： localhost
--- 生成日期： 2019-05-21 14:39:15
--- 服务器版本： 5.5.53
--- PHP 版本： 7.0.12
+-- 主机： 127.0.0.1:3306
+-- 生成日期： 2019-05-21 15:10:27
+-- 服务器版本： 5.7.24
+-- PHP 版本： 7.2.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,8 +28,9 @@ SET time_zone = "+00:00";
 -- 表的结构 `shop_admin_menu`
 --
 
-CREATE TABLE `shop_admin_menu` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_admin_menu`;
+CREATE TABLE IF NOT EXISTS `shop_admin_menu` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父菜单id',
   `type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '菜单类型;1:有界面可访问菜单,2:无界面可访问菜单,0:只作为菜单',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '状态;1:显示,0:不显示',
@@ -40,8 +41,12 @@ CREATE TABLE `shop_admin_menu` (
   `param` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '额外参数',
   `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '菜单名称',
   `icon` varchar(20) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '菜单图标',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `parent_id` (`parent_id`),
+  KEY `controller` (`controller`)
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COMMENT='后台菜单表';
 
 --
 -- 转存表中的数据 `shop_admin_menu`
@@ -179,7 +184,38 @@ INSERT INTO `shop_admin_menu` (`id`, `parent_id`, `type`, `status`, `list_order`
 (129, 6, 1, 1, 10000, 'user', 'AdminUserAction', 'index', '', '用户操作管理', '', '用户操作管理'),
 (130, 129, 1, 0, 10000, 'user', 'AdminUserAction', 'edit', '', '编辑用户操作', '', '编辑用户操作'),
 (131, 129, 2, 0, 10000, 'user', 'AdminUserAction', 'editPost', '', '编辑用户操作提交', '', '编辑用户操作提交'),
-(132, 129, 1, 0, 10000, 'user', 'AdminUserAction', 'sync', '', '同步用户操作', '', '同步用户操作');
+(132, 129, 1, 0, 10000, 'user', 'AdminUserAction', 'sync', '', '同步用户操作', '', '同步用户操作'),
+(162, 0, 0, 1, 30, 'portal', 'AdminIndex', 'default', '', '门户管理', 'th', '门户管理'),
+(163, 162, 1, 1, 10000, 'portal', 'AdminArticle', 'index', '', '文章管理', '', '文章列表'),
+(164, 163, 1, 0, 10000, 'portal', 'AdminArticle', 'add', '', '添加文章', '', '添加文章'),
+(165, 163, 2, 0, 10000, 'portal', 'AdminArticle', 'addPost', '', '添加文章提交', '', '添加文章提交'),
+(166, 163, 1, 0, 10000, 'portal', 'AdminArticle', 'edit', '', '编辑文章', '', '编辑文章'),
+(167, 163, 2, 0, 10000, 'portal', 'AdminArticle', 'editPost', '', '编辑文章提交', '', '编辑文章提交'),
+(168, 163, 2, 0, 10000, 'portal', 'AdminArticle', 'delete', '', '文章删除', '', '文章删除'),
+(169, 163, 2, 0, 10000, 'portal', 'AdminArticle', 'publish', '', '文章发布', '', '文章发布'),
+(170, 163, 2, 0, 10000, 'portal', 'AdminArticle', 'top', '', '文章置顶', '', '文章置顶'),
+(171, 163, 2, 0, 10000, 'portal', 'AdminArticle', 'recommend', '', '文章推荐', '', '文章推荐'),
+(172, 163, 2, 0, 10000, 'portal', 'AdminArticle', 'listOrder', '', '文章排序', '', '文章排序'),
+(173, 162, 1, 1, 10000, 'portal', 'AdminCategory', 'index', '', '分类管理', '', '文章分类列表'),
+(174, 173, 1, 0, 10000, 'portal', 'AdminCategory', 'add', '', '添加文章分类', '', '添加文章分类'),
+(175, 173, 2, 0, 10000, 'portal', 'AdminCategory', 'addPost', '', '添加文章分类提交', '', '添加文章分类提交'),
+(176, 173, 1, 0, 10000, 'portal', 'AdminCategory', 'edit', '', '编辑文章分类', '', '编辑文章分类'),
+(177, 173, 2, 0, 10000, 'portal', 'AdminCategory', 'editPost', '', '编辑文章分类提交', '', '编辑文章分类提交'),
+(178, 173, 1, 0, 10000, 'portal', 'AdminCategory', 'select', '', '文章分类选择对话框', '', '文章分类选择对话框'),
+(179, 173, 2, 0, 10000, 'portal', 'AdminCategory', 'listOrder', '', '文章分类排序', '', '文章分类排序'),
+(180, 173, 2, 0, 10000, 'portal', 'AdminCategory', 'toggle', '', '文章分类显示隐藏', '', '文章分类显示隐藏'),
+(181, 173, 2, 0, 10000, 'portal', 'AdminCategory', 'delete', '', '删除文章分类', '', '删除文章分类'),
+(182, 162, 1, 1, 10000, 'portal', 'AdminPage', 'index', '', '页面管理', '', '页面管理'),
+(183, 182, 1, 0, 10000, 'portal', 'AdminPage', 'add', '', '添加页面', '', '添加页面'),
+(184, 182, 2, 0, 10000, 'portal', 'AdminPage', 'addPost', '', '添加页面提交', '', '添加页面提交'),
+(185, 182, 1, 0, 10000, 'portal', 'AdminPage', 'edit', '', '编辑页面', '', '编辑页面'),
+(186, 182, 2, 0, 10000, 'portal', 'AdminPage', 'editPost', '', '编辑页面提交', '', '编辑页面提交'),
+(187, 182, 2, 0, 10000, 'portal', 'AdminPage', 'delete', '', '删除页面', '', '删除页面'),
+(188, 162, 1, 1, 10000, 'portal', 'AdminTag', 'index', '', '文章标签', '', '文章标签'),
+(189, 188, 1, 0, 10000, 'portal', 'AdminTag', 'add', '', '添加文章标签', '', '添加文章标签'),
+(190, 188, 2, 0, 10000, 'portal', 'AdminTag', 'addPost', '', '添加文章标签提交', '', '添加文章标签提交'),
+(191, 188, 2, 0, 10000, 'portal', 'AdminTag', 'upStatus', '', '更新标签状态', '', '更新标签状态'),
+(192, 188, 2, 0, 10000, 'portal', 'AdminTag', 'delete', '', '删除文章标签', '', '删除文章标签');
 
 -- --------------------------------------------------------
 
@@ -187,8 +223,9 @@ INSERT INTO `shop_admin_menu` (`id`, `parent_id`, `type`, `status`, `list_order`
 -- 表的结构 `shop_asset`
 --
 
-CREATE TABLE `shop_asset` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_asset`;
+CREATE TABLE IF NOT EXISTS `shop_asset` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
   `file_size` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文件大小,单位B',
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '上传时间',
@@ -200,7 +237,8 @@ CREATE TABLE `shop_asset` (
   `file_md5` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '文件md5值',
   `file_sha1` varchar(40) CHARACTER SET utf8 NOT NULL DEFAULT '',
   `suffix` varchar(10) NOT NULL DEFAULT '' COMMENT '文件后缀名,不包括点',
-  `more` text COMMENT '其它详细信息,JSON格式'
+  `more` text COMMENT '其它详细信息,JSON格式',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源表';
 
 -- --------------------------------------------------------
@@ -209,11 +247,15 @@ CREATE TABLE `shop_asset` (
 -- 表的结构 `shop_auth_access`
 --
 
-CREATE TABLE `shop_auth_access` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_auth_access`;
+CREATE TABLE IF NOT EXISTS `shop_auth_access` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `role_id` int(10) UNSIGNED NOT NULL COMMENT '角色',
   `rule_name` varchar(100) NOT NULL DEFAULT '' COMMENT '规则唯一英文标识,全小写',
-  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '权限规则分类,请加应用前缀,如admin_'
+  `type` varchar(30) NOT NULL DEFAULT '' COMMENT '权限规则分类,请加应用前缀,如admin_',
+  PRIMARY KEY (`id`),
+  KEY `role_id` (`role_id`),
+  KEY `rule_name` (`rule_name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限授权表';
 
 -- --------------------------------------------------------
@@ -222,16 +264,20 @@ CREATE TABLE `shop_auth_access` (
 -- 表的结构 `shop_auth_rule`
 --
 
-CREATE TABLE `shop_auth_rule` (
-  `id` int(10) UNSIGNED NOT NULL COMMENT '规则id,自增主键',
+DROP TABLE IF EXISTS `shop_auth_rule`;
+CREATE TABLE IF NOT EXISTS `shop_auth_rule` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '是否有效(0:无效,1:有效)',
   `app` varchar(40) NOT NULL DEFAULT '' COMMENT '规则所属app',
   `type` varchar(30) NOT NULL DEFAULT '' COMMENT '权限规则分类，请加应用前缀,如admin_',
   `name` varchar(100) NOT NULL DEFAULT '' COMMENT '规则唯一英文标识,全小写',
   `param` varchar(100) NOT NULL DEFAULT '' COMMENT '额外url参数',
   `title` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '规则描述',
-  `condition` varchar(200) NOT NULL DEFAULT '' COMMENT '规则附加条件'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='权限规则表';
+  `condition` varchar(200) NOT NULL DEFAULT '' COMMENT '规则附加条件',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`) USING BTREE,
+  KEY `module` (`app`,`status`,`type`)
+) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=utf8mb4 COMMENT='权限规则表';
 
 --
 -- 转存表中的数据 `shop_auth_rule`
@@ -369,7 +415,38 @@ INSERT INTO `shop_auth_rule` (`id`, `status`, `app`, `type`, `name`, `param`, `t
 (129, 1, 'user', 'admin_url', 'user/AdminUserAction/index', '', '用户操作管理', ''),
 (130, 1, 'user', 'admin_url', 'user/AdminUserAction/edit', '', '编辑用户操作', ''),
 (131, 1, 'user', 'admin_url', 'user/AdminUserAction/editPost', '', '编辑用户操作提交', ''),
-(132, 1, 'user', 'admin_url', 'user/AdminUserAction/sync', '', '同步用户操作', '');
+(132, 1, 'user', 'admin_url', 'user/AdminUserAction/sync', '', '同步用户操作', ''),
+(162, 1, 'portal', 'admin_url', 'portal/AdminArticle/index', '', '文章管理', ''),
+(163, 1, 'portal', 'admin_url', 'portal/AdminArticle/add', '', '添加文章', ''),
+(164, 1, 'portal', 'admin_url', 'portal/AdminArticle/addPost', '', '添加文章提交', ''),
+(165, 1, 'portal', 'admin_url', 'portal/AdminArticle/edit', '', '编辑文章', ''),
+(166, 1, 'portal', 'admin_url', 'portal/AdminArticle/editPost', '', '编辑文章提交', ''),
+(167, 1, 'portal', 'admin_url', 'portal/AdminArticle/delete', '', '文章删除', ''),
+(168, 1, 'portal', 'admin_url', 'portal/AdminArticle/publish', '', '文章发布', ''),
+(169, 1, 'portal', 'admin_url', 'portal/AdminArticle/top', '', '文章置顶', ''),
+(170, 1, 'portal', 'admin_url', 'portal/AdminArticle/recommend', '', '文章推荐', ''),
+(171, 1, 'portal', 'admin_url', 'portal/AdminArticle/listOrder', '', '文章排序', ''),
+(172, 1, 'portal', 'admin_url', 'portal/AdminCategory/index', '', '分类管理', ''),
+(173, 1, 'portal', 'admin_url', 'portal/AdminCategory/add', '', '添加文章分类', ''),
+(174, 1, 'portal', 'admin_url', 'portal/AdminCategory/addPost', '', '添加文章分类提交', ''),
+(175, 1, 'portal', 'admin_url', 'portal/AdminCategory/edit', '', '编辑文章分类', ''),
+(176, 1, 'portal', 'admin_url', 'portal/AdminCategory/editPost', '', '编辑文章分类提交', ''),
+(177, 1, 'portal', 'admin_url', 'portal/AdminCategory/select', '', '文章分类选择对话框', ''),
+(178, 1, 'portal', 'admin_url', 'portal/AdminCategory/listOrder', '', '文章分类排序', ''),
+(179, 1, 'portal', 'admin_url', 'portal/AdminCategory/toggle', '', '文章分类显示隐藏', ''),
+(180, 1, 'portal', 'admin_url', 'portal/AdminCategory/delete', '', '删除文章分类', ''),
+(181, 1, 'portal', 'admin_url', 'portal/AdminIndex/default', '', '门户管理', ''),
+(182, 1, 'portal', 'admin_url', 'portal/AdminPage/index', '', '页面管理', ''),
+(183, 1, 'portal', 'admin_url', 'portal/AdminPage/add', '', '添加页面', ''),
+(184, 1, 'portal', 'admin_url', 'portal/AdminPage/addPost', '', '添加页面提交', ''),
+(185, 1, 'portal', 'admin_url', 'portal/AdminPage/edit', '', '编辑页面', ''),
+(186, 1, 'portal', 'admin_url', 'portal/AdminPage/editPost', '', '编辑页面提交', ''),
+(187, 1, 'portal', 'admin_url', 'portal/AdminPage/delete', '', '删除页面', ''),
+(188, 1, 'portal', 'admin_url', 'portal/AdminTag/index', '', '文章标签', ''),
+(189, 1, 'portal', 'admin_url', 'portal/AdminTag/add', '', '添加文章标签', ''),
+(190, 1, 'portal', 'admin_url', 'portal/AdminTag/addPost', '', '添加文章标签提交', ''),
+(191, 1, 'portal', 'admin_url', 'portal/AdminTag/upStatus', '', '更新标签状态', ''),
+(192, 1, 'portal', 'admin_url', 'portal/AdminTag/delete', '', '删除文章标签', '');
 
 -- --------------------------------------------------------
 
@@ -377,8 +454,9 @@ INSERT INTO `shop_auth_rule` (`id`, `status`, `app`, `type`, `name`, `param`, `t
 -- 表的结构 `shop_comment`
 --
 
-CREATE TABLE `shop_comment` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_comment`;
+CREATE TABLE IF NOT EXISTS `shop_comment` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '被回复的评论id',
   `user_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '发表评论的用户id',
   `to_user_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '被评论的用户id',
@@ -396,7 +474,13 @@ CREATE TABLE `shop_comment` (
   `path` varchar(255) NOT NULL DEFAULT '' COMMENT '层级关系',
   `url` text COMMENT '原文地址',
   `content` text CHARACTER SET utf8mb4 COMMENT '评论内容',
-  `more` text CHARACTER SET utf8mb4 COMMENT '扩展属性'
+  `more` text CHARACTER SET utf8mb4 COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  KEY `table_id_status` (`table_name`,`object_id`,`status`),
+  KEY `object_id` (`object_id`) USING BTREE,
+  KEY `status` (`status`) USING BTREE,
+  KEY `parent_id` (`parent_id`) USING BTREE,
+  KEY `create_time` (`create_time`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 -- --------------------------------------------------------
@@ -405,15 +489,17 @@ CREATE TABLE `shop_comment` (
 -- 表的结构 `shop_hook`
 --
 
-CREATE TABLE `shop_hook` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_hook`;
+CREATE TABLE IF NOT EXISTS `shop_hook` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `type` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '钩子类型(1:系统钩子;2:应用钩子;3:模板钩子;4:后台模板钩子)',
   `once` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否只允许一个插件运行(0:多个;1:一个)',
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名称',
   `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子',
   `app` varchar(15) NOT NULL DEFAULT '' COMMENT '应用名(只有应用钩子才用)',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统钩子表';
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COMMENT='系统钩子表';
 
 --
 -- 转存表中的数据 `shop_hook`
@@ -483,12 +569,14 @@ INSERT INTO `shop_hook` (`id`, `type`, `once`, `name`, `hook`, `app`, `descripti
 -- 表的结构 `shop_hook_plugin`
 --
 
-CREATE TABLE `shop_hook_plugin` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_hook_plugin`;
+CREATE TABLE IF NOT EXISTS `shop_hook_plugin` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
   `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名',
-  `plugin` varchar(50) NOT NULL DEFAULT '' COMMENT '插件'
+  `plugin` varchar(50) NOT NULL DEFAULT '' COMMENT '插件',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统钩子插件表';
 
 -- --------------------------------------------------------
@@ -497,8 +585,9 @@ CREATE TABLE `shop_hook_plugin` (
 -- 表的结构 `shop_link`
 --
 
-CREATE TABLE `shop_link` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_link`;
+CREATE TABLE IF NOT EXISTS `shop_link` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:显示;0:不显示',
   `rating` int(11) NOT NULL DEFAULT '0' COMMENT '友情链接评级',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
@@ -507,8 +596,10 @@ CREATE TABLE `shop_link` (
   `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '友情链接名称',
   `image` varchar(100) NOT NULL DEFAULT '' COMMENT '友情链接图标',
   `target` varchar(10) NOT NULL DEFAULT '' COMMENT '友情链接打开方式',
-  `rel` varchar(50) NOT NULL DEFAULT '' COMMENT '链接与网站的关系'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='友情链接表';
+  `rel` varchar(50) NOT NULL DEFAULT '' COMMENT '链接与网站的关系',
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='友情链接表';
 
 --
 -- 转存表中的数据 `shop_link`
@@ -523,12 +614,14 @@ INSERT INTO `shop_link` (`id`, `status`, `rating`, `list_order`, `description`, 
 -- 表的结构 `shop_nav`
 --
 
-CREATE TABLE `shop_nav` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_nav`;
+CREATE TABLE IF NOT EXISTS `shop_nav` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `is_main` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '是否为主导航;1:是;0:不是',
   `name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '导航位置名称',
-  `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '备注'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前台导航位置表';
+  `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航位置表';
 
 --
 -- 转存表中的数据 `shop_nav`
@@ -544,8 +637,9 @@ INSERT INTO `shop_nav` (`id`, `is_main`, `name`, `remark`) VALUES
 -- 表的结构 `shop_nav_menu`
 --
 
-CREATE TABLE `shop_nav_menu` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `shop_nav_menu`;
+CREATE TABLE IF NOT EXISTS `shop_nav_menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `nav_id` int(11) NOT NULL COMMENT '导航 id',
   `parent_id` int(11) NOT NULL COMMENT '父 id',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:显示;0:隐藏',
@@ -554,8 +648,9 @@ CREATE TABLE `shop_nav_menu` (
   `target` varchar(10) NOT NULL DEFAULT '' COMMENT '打开方式',
   `href` varchar(100) NOT NULL DEFAULT '' COMMENT '链接',
   `icon` varchar(20) NOT NULL DEFAULT '' COMMENT '图标',
-  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '层级关系'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='前台导航菜单表';
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '层级关系',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='前台导航菜单表';
 
 --
 -- 转存表中的数据 `shop_nav_menu`
@@ -570,12 +665,15 @@ INSERT INTO `shop_nav_menu` (`id`, `nav_id`, `parent_id`, `status`, `list_order`
 -- 表的结构 `shop_option`
 --
 
-CREATE TABLE `shop_option` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_option`;
+CREATE TABLE IF NOT EXISTS `shop_option` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `autoload` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '是否自动加载;1:自动加载;0:不自动加载',
   `option_name` varchar(64) NOT NULL DEFAULT '' COMMENT '配置名',
-  `option_value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '配置值'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='全站配置表' ROW_FORMAT=COMPACT;
+  `option_value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '配置值',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `option_name` (`option_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='全站配置表' ROW_FORMAT=COMPACT;
 
 --
 -- 转存表中的数据 `shop_option`
@@ -590,8 +688,9 @@ INSERT INTO `shop_option` (`id`, `autoload`, `option_name`, `option_value`) VALU
 -- 表的结构 `shop_plugin`
 --
 
-CREATE TABLE `shop_plugin` (
-  `id` int(11) UNSIGNED NOT NULL COMMENT '自增id',
+DROP TABLE IF EXISTS `shop_plugin`;
+CREATE TABLE IF NOT EXISTS `shop_plugin` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '插件类型;1:网站;8:微信',
   `has_admin` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否有后台管理,0:没有;1:有',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:开启;0:禁用',
@@ -604,8 +703,124 @@ CREATE TABLE `shop_plugin` (
   `author_url` varchar(50) NOT NULL DEFAULT '' COMMENT '作者网站链接',
   `version` varchar(20) NOT NULL DEFAULT '' COMMENT '插件版本号',
   `description` varchar(255) NOT NULL COMMENT '插件描述',
-  `config` text COMMENT '插件配置'
+  `config` text COMMENT '插件配置',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='插件表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_portal_category`
+--
+
+DROP TABLE IF EXISTS `shop_portal_category`;
+CREATE TABLE IF NOT EXISTS `shop_portal_category` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类父id',
+  `post_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类文章数',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:发布,0:不发布',
+  `delete_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '分类名称',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '分类描述',
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '分类层级关系路径',
+  `seo_title` varchar(100) NOT NULL DEFAULT '',
+  `seo_keywords` varchar(255) NOT NULL DEFAULT '',
+  `seo_description` varchar(255) NOT NULL DEFAULT '',
+  `list_tpl` varchar(50) NOT NULL DEFAULT '' COMMENT '分类列表模板',
+  `one_tpl` varchar(50) NOT NULL DEFAULT '' COMMENT '分类文章页模板',
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章分类表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_portal_category_post`
+--
+
+DROP TABLE IF EXISTS `shop_portal_category_post`;
+CREATE TABLE IF NOT EXISTS `shop_portal_category_post` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `post_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文章id',
+  `category_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类id',
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:发布;0:不发布',
+  PRIMARY KEY (`id`),
+  KEY `term_taxonomy_id` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='portal应用 分类文章对应表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_portal_post`
+--
+
+DROP TABLE IF EXISTS `shop_portal_post`;
+CREATE TABLE IF NOT EXISTS `shop_portal_post` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `parent_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父级id',
+  `post_type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '类型,1:文章;2:页面',
+  `post_format` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '内容格式;1:html;2:md',
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '发表者用户id',
+  `post_status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态;1:已发布;0:未发布;',
+  `comment_status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '评论状态;1:允许;0:不允许',
+  `is_top` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否置顶;1:置顶;0:不置顶',
+  `recommended` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否推荐;1:推荐;0:不推荐',
+  `post_hits` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '查看数',
+  `post_favorites` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '收藏数',
+  `post_like` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '点赞数',
+  `comment_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '评论数',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `published_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '发布时间',
+  `delete_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '删除时间',
+  `post_title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'post标题',
+  `post_keywords` varchar(150) NOT NULL DEFAULT '' COMMENT 'seo keywords',
+  `post_excerpt` varchar(500) NOT NULL DEFAULT '' COMMENT 'post摘要',
+  `post_source` varchar(150) NOT NULL DEFAULT '' COMMENT '转载文章的来源',
+  `thumbnail` varchar(100) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `post_content` text COMMENT '文章内容',
+  `post_content_filtered` text COMMENT '处理过的文章内容',
+  `more` text COMMENT '扩展属性,如缩略图;格式为json',
+  PRIMARY KEY (`id`),
+  KEY `type_status_date` (`post_type`,`post_status`,`create_time`,`id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_time` (`create_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章表' ROW_FORMAT=COMPACT;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_portal_tag`
+--
+
+DROP TABLE IF EXISTS `shop_portal_tag`;
+CREATE TABLE IF NOT EXISTS `shop_portal_tag` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:发布,0:不发布',
+  `recommended` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '是否推荐;1:推荐;0:不推荐',
+  `post_count` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '标签文章数',
+  `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '标签名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='portal应用 文章标签表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_portal_tag_post`
+--
+
+DROP TABLE IF EXISTS `shop_portal_tag_post`;
+CREATE TABLE IF NOT EXISTS `shop_portal_tag_post` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tag_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '标签 id',
+  `post_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '文章 id',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:发布;0:不发布',
+  PRIMARY KEY (`id`),
+  KEY `post_id` (`post_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='portal应用 标签文章对应表';
 
 -- --------------------------------------------------------
 
@@ -613,13 +828,15 @@ CREATE TABLE `shop_plugin` (
 -- 表的结构 `shop_recycle_bin`
 --
 
-CREATE TABLE `shop_recycle_bin` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_recycle_bin`;
+CREATE TABLE IF NOT EXISTS `shop_recycle_bin` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `object_id` int(11) DEFAULT '0' COMMENT '删除内容 id',
   `create_time` int(10) UNSIGNED DEFAULT '0' COMMENT '创建时间',
   `table_name` varchar(60) DEFAULT '' COMMENT '删除内容所在表名',
   `name` varchar(255) DEFAULT '' COMMENT '删除内容名称',
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id'
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=' 回收站';
 
 -- --------------------------------------------------------
@@ -628,16 +845,20 @@ CREATE TABLE `shop_recycle_bin` (
 -- 表的结构 `shop_role`
 --
 
-CREATE TABLE `shop_role` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_role`;
+CREATE TABLE IF NOT EXISTS `shop_role` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `parent_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '父角色ID',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '状态;0:禁用;1:正常',
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '更新时间',
   `list_order` float NOT NULL DEFAULT '0' COMMENT '排序',
   `name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '角色名称',
-  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='角色表';
 
 --
 -- 转存表中的数据 `shop_role`
@@ -653,10 +874,14 @@ INSERT INTO `shop_role` (`id`, `parent_id`, `status`, `create_time`, `update_tim
 -- 表的结构 `shop_role_user`
 --
 
-CREATE TABLE `shop_role_user` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_role_user`;
+CREATE TABLE IF NOT EXISTS `shop_role_user` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `role_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '角色 id',
-  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id'
+  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
+  PRIMARY KEY (`id`),
+  KEY `role_id` (`role_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色对应表';
 
 -- --------------------------------------------------------
@@ -665,13 +890,15 @@ CREATE TABLE `shop_role_user` (
 -- 表的结构 `shop_route`
 --
 
-CREATE TABLE `shop_route` (
-  `id` int(11) NOT NULL COMMENT '路由id',
+DROP TABLE IF EXISTS `shop_route`;
+CREATE TABLE IF NOT EXISTS `shop_route` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '路由id',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
   `status` tinyint(2) NOT NULL DEFAULT '1' COMMENT '状态;1:启用,0:不启用',
   `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT 'URL规则类型;1:用户自定义;2:别名添加',
   `full_url` varchar(255) NOT NULL DEFAULT '' COMMENT '完整url',
-  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '实际显示的url'
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '实际显示的url',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='url路由表';
 
 -- --------------------------------------------------------
@@ -680,12 +907,14 @@ CREATE TABLE `shop_route` (
 -- 表的结构 `shop_slide`
 --
 
-CREATE TABLE `shop_slide` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `shop_slide`;
+CREATE TABLE IF NOT EXISTS `shop_slide` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:显示,0不显示',
   `delete_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '删除时间',
   `name` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '幻灯片分类',
-  `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '分类备注'
+  `remark` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '分类备注',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='幻灯片表';
 
 -- --------------------------------------------------------
@@ -694,8 +923,9 @@ CREATE TABLE `shop_slide` (
 -- 表的结构 `shop_slide_item`
 --
 
-CREATE TABLE `shop_slide_item` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_slide_item`;
+CREATE TABLE IF NOT EXISTS `shop_slide_item` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `slide_id` int(11) NOT NULL DEFAULT '0' COMMENT '幻灯片id',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '状态,1:显示;0:隐藏',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
@@ -705,7 +935,9 @@ CREATE TABLE `shop_slide_item` (
   `target` varchar(10) NOT NULL DEFAULT '' COMMENT '友情链接打开方式',
   `description` varchar(255) CHARACTER SET utf8 NOT NULL COMMENT '幻灯片描述',
   `content` text CHARACTER SET utf8 COMMENT '幻灯片内容',
-  `more` text COMMENT '扩展信息'
+  `more` text COMMENT '扩展信息',
+  PRIMARY KEY (`id`),
+  KEY `slide_id` (`slide_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='幻灯片子项表';
 
 -- --------------------------------------------------------
@@ -714,8 +946,9 @@ CREATE TABLE `shop_slide_item` (
 -- 表的结构 `shop_theme`
 --
 
-CREATE TABLE `shop_theme` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `shop_theme`;
+CREATE TABLE IF NOT EXISTS `shop_theme` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '安装时间',
   `update_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '最后升级时间',
   `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '模板状态,1:正在使用;0:未使用',
@@ -729,15 +962,17 @@ CREATE TABLE `shop_theme` (
   `author_url` varchar(50) NOT NULL DEFAULT '' COMMENT '作者网站链接',
   `lang` varchar(10) NOT NULL DEFAULT '' COMMENT '支持语言',
   `keywords` varchar(50) NOT NULL DEFAULT '' COMMENT '主题关键字',
-  `description` varchar(100) NOT NULL DEFAULT '' COMMENT '主题描述'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `description` varchar(100) NOT NULL DEFAULT '' COMMENT '主题描述',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `shop_theme`
 --
 
 INSERT INTO `shop_theme` (`id`, `create_time`, `update_time`, `status`, `is_compiled`, `theme`, `name`, `version`, `demo_url`, `thumbnail`, `author`, `author_url`, `lang`, `keywords`, `description`) VALUES
-(1, 0, 0, 0, 0, 'default', 'default', '1.0.0', 'http://demo.thinkcmf.com', '', 'ThinkCMF', 'http://www.thinkcmf.com', 'zh-cn', 'ThinkCMF默认模板', 'ThinkCMF默认模板');
+(1, 0, 0, 0, 0, 'default', 'default', '1.0.0', 'http://demo.thinkcmf.com', '', 'ThinkCMF', 'http://www.thinkcmf.com', 'zh-cn', 'ThinkCMF默认模板', 'ThinkCMF默认模板'),
+(2, 0, 0, 0, 0, 'simpleboot3', 'simpleboot3', '1.0.2', 'http://demo.thinkcmf.com', '', 'ThinkCMF', 'http://www.thinkcmf.com', 'zh-cn', 'ThinkCMF模板', 'ThinkCMF默认模板');
 
 -- --------------------------------------------------------
 
@@ -745,8 +980,9 @@ INSERT INTO `shop_theme` (`id`, `create_time`, `update_time`, `status`, `is_comp
 -- 表的结构 `shop_theme_file`
 --
 
-CREATE TABLE `shop_theme_file` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `shop_theme_file`;
+CREATE TABLE IF NOT EXISTS `shop_theme_file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `is_public` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否公共的模板文件',
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
   `theme` varchar(20) NOT NULL DEFAULT '' COMMENT '模板名称',
@@ -756,8 +992,23 @@ CREATE TABLE `shop_theme_file` (
   `description` varchar(100) NOT NULL DEFAULT '' COMMENT '模板文件描述',
   `more` text COMMENT '模板更多配置,用户自己后台设置的',
   `config_more` text COMMENT '模板更多配置,来源模板的配置文件',
-  `draft_more` text COMMENT '模板更多配置,用户临时保存的配置'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `draft_more` text COMMENT '模板更多配置,用户临时保存的配置',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `shop_theme_file`
+--
+
+INSERT INTO `shop_theme_file` (`id`, `is_public`, `list_order`, `theme`, `name`, `action`, `file`, `description`, `more`, `config_more`, `draft_more`) VALUES
+(1, 0, 10, 'simpleboot3', '文章页', 'portal/Article/index', 'portal/article', '文章页模板文件', '{\"vars\":{\"hot_articles_category_id\":{\"title\":\"Hot Articles\\u5206\\u7c7bID\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', '{\"vars\":{\"hot_articles_category_id\":{\"title\":\"Hot Articles\\u5206\\u7c7bID\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', NULL),
+(2, 0, 10, 'simpleboot3', '联系我们页', 'portal/Page/index', 'portal/contact', '联系我们页模板文件', '{\"vars\":{\"baidu_map_info_window_text\":{\"title\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57\",\"name\":\"baidu_map_info_window_text\",\"value\":\"ThinkCMF<br\\/><span class=\'\'>\\u5730\\u5740\\uff1a\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def2601\\u53f7<\\/span>\",\"type\":\"text\",\"tip\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57,\\u652f\\u6301\\u7b80\\u5355html\\u4ee3\\u7801\",\"rule\":[]},\"company_location\":{\"title\":\"\\u516c\\u53f8\\u5750\\u6807\",\"value\":\"\",\"type\":\"location\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_cn\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\",\"value\":\"\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def0001\\u53f7\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_en\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"NO.0001 Xie Tu Road, Shanghai China\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"email\":{\"title\":\"\\u516c\\u53f8\\u90ae\\u7bb1\",\"value\":\"catman@thinkcmf.com\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_cn\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\",\"value\":\"021 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_en\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"+8621 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"qq\":{\"title\":\"\\u8054\\u7cfbQQ\",\"value\":\"478519726\",\"type\":\"text\",\"tip\":\"\\u591a\\u4e2a QQ\\u4ee5\\u82f1\\u6587\\u9017\\u53f7\\u9694\\u5f00\",\"rule\":{\"require\":true}}}}', '{\"vars\":{\"baidu_map_info_window_text\":{\"title\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57\",\"name\":\"baidu_map_info_window_text\",\"value\":\"ThinkCMF<br\\/><span class=\'\'>\\u5730\\u5740\\uff1a\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def2601\\u53f7<\\/span>\",\"type\":\"text\",\"tip\":\"\\u767e\\u5ea6\\u5730\\u56fe\\u6807\\u6ce8\\u6587\\u5b57,\\u652f\\u6301\\u7b80\\u5355html\\u4ee3\\u7801\",\"rule\":[]},\"company_location\":{\"title\":\"\\u516c\\u53f8\\u5750\\u6807\",\"value\":\"\",\"type\":\"location\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_cn\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\",\"value\":\"\\u4e0a\\u6d77\\u5e02\\u5f90\\u6c47\\u533a\\u659c\\u571f\\u8def0001\\u53f7\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"address_en\":{\"title\":\"\\u516c\\u53f8\\u5730\\u5740\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"NO.0001 Xie Tu Road, Shanghai China\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"email\":{\"title\":\"\\u516c\\u53f8\\u90ae\\u7bb1\",\"value\":\"catman@thinkcmf.com\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_cn\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\",\"value\":\"021 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"phone_en\":{\"title\":\"\\u516c\\u53f8\\u7535\\u8bdd\\uff08\\u82f1\\u6587\\uff09\",\"value\":\"+8621 1000 0001\",\"type\":\"text\",\"tip\":\"\",\"rule\":{\"require\":true}},\"qq\":{\"title\":\"\\u8054\\u7cfbQQ\",\"value\":\"478519726\",\"type\":\"text\",\"tip\":\"\\u591a\\u4e2a QQ\\u4ee5\\u82f1\\u6587\\u9017\\u53f7\\u9694\\u5f00\",\"rule\":{\"require\":true}}}}', NULL),
+(3, 0, 5, 'simpleboot3', '首页', 'portal/Index/index', 'portal/index', '首页模板文件', '{\"vars\":{\"top_slide\":{\"title\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"admin\\/Slide\\/index\",\"multi\":false},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"tip\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"rule\":{\"require\":true}}},\"widgets\":{\"features\":{\"title\":\"\\u5feb\\u901f\\u4e86\\u89e3ThinkCMF\",\"display\":\"1\",\"vars\":{\"sub_title\":{\"title\":\"\\u526f\\u6807\\u9898\",\"value\":\"Quickly understand the ThinkCMF\",\"type\":\"text\",\"placeholder\":\"\\u8bf7\\u8f93\\u5165\\u526f\\u6807\\u9898\",\"tip\":\"\",\"rule\":{\"require\":true}},\"features\":{\"title\":\"\\u7279\\u6027\\u4ecb\\u7ecd\",\"value\":[{\"title\":\"MVC\\u5206\\u5c42\\u6a21\\u5f0f\",\"icon\":\"bars\",\"content\":\"\\u4f7f\\u7528MVC\\u5e94\\u7528\\u7a0b\\u5e8f\\u88ab\\u5206\\u6210\\u4e09\\u4e2a\\u6838\\u5fc3\\u90e8\\u4ef6\\uff1a\\u6a21\\u578b\\uff08M\\uff09\\u3001\\u89c6\\u56fe\\uff08V\\uff09\\u3001\\u63a7\\u5236\\u5668\\uff08C\\uff09\\uff0c\\u4ed6\\u4e0d\\u662f\\u4e00\\u4e2a\\u65b0\\u7684\\u6982\\u5ff5\\uff0c\\u53ea\\u662fThinkCMF\\u5c06\\u5176\\u53d1\\u6325\\u5230\\u4e86\\u6781\\u81f4\\u3002\"},{\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"group\",\"content\":\"ThinkCMF\\u5185\\u7f6e\\u4e86\\u7075\\u6d3b\\u7684\\u7528\\u6237\\u7ba1\\u7406\\u65b9\\u5f0f\\uff0c\\u5e76\\u53ef\\u76f4\\u63a5\\u4e0e\\u7b2c\\u4e09\\u65b9\\u7ad9\\u70b9\\u8fdb\\u884c\\u4e92\\u8054\\u4e92\\u901a\\uff0c\\u5982\\u679c\\u4f60\\u613f\\u610f\\u751a\\u81f3\\u53ef\\u4ee5\\u5bf9\\u5355\\u4e2a\\u7528\\u6237\\u6216\\u7fa4\\u4f53\\u7528\\u6237\\u7684\\u884c\\u4e3a\\u8fdb\\u884c\\u8bb0\\u5f55\\u53ca\\u5206\\u4eab\\uff0c\\u4e3a\\u60a8\\u7684\\u8fd0\\u8425\\u51b3\\u7b56\\u63d0\\u4f9b\\u6709\\u6548\\u53c2\\u8003\\u6570\\u636e\\u3002\"},{\"title\":\"\\u4e91\\u7aef\\u90e8\\u7f72\",\"icon\":\"cloud\",\"content\":\"\\u901a\\u8fc7\\u9a71\\u52a8\\u7684\\u65b9\\u5f0f\\u53ef\\u4ee5\\u8f7b\\u677e\\u652f\\u6301\\u4e91\\u5e73\\u53f0\\u7684\\u90e8\\u7f72\\uff0c\\u8ba9\\u4f60\\u7684\\u7f51\\u7ad9\\u65e0\\u7f1d\\u8fc1\\u79fb\\uff0c\\u5185\\u7f6e\\u5df2\\u7ecf\\u652f\\u6301SAE\\u3001BAE\\uff0c\\u6b63\\u5f0f\\u7248\\u5c06\\u5bf9\\u4e91\\u7aef\\u90e8\\u7f72\\u8fdb\\u884c\\u8fdb\\u4e00\\u6b65\\u4f18\\u5316\\u3002\"},{\"title\":\"\\u5b89\\u5168\\u7b56\\u7565\",\"icon\":\"heart\",\"content\":\"\\u63d0\\u4f9b\\u7684\\u7a33\\u5065\\u7684\\u5b89\\u5168\\u7b56\\u7565\\uff0c\\u5305\\u62ec\\u5907\\u4efd\\u6062\\u590d\\uff0c\\u5bb9\\u9519\\uff0c\\u9632\\u6cbb\\u6076\\u610f\\u653b\\u51fb\\u767b\\u9646\\uff0c\\u7f51\\u9875\\u9632\\u7be1\\u6539\\u7b49\\u591a\\u9879\\u5b89\\u5168\\u7ba1\\u7406\\u529f\\u80fd\\uff0c\\u4fdd\\u8bc1\\u7cfb\\u7edf\\u5b89\\u5168\\uff0c\\u53ef\\u9760\\uff0c\\u7a33\\u5b9a\\u7684\\u8fd0\\u884c\\u3002\"},{\"title\":\"\\u5e94\\u7528\\u6a21\\u5757\\u5316\",\"icon\":\"cubes\",\"content\":\"\\u63d0\\u51fa\\u5168\\u65b0\\u7684\\u5e94\\u7528\\u6a21\\u5f0f\\u8fdb\\u884c\\u6269\\u5c55\\uff0c\\u4e0d\\u7ba1\\u662f\\u4f60\\u5f00\\u53d1\\u4e00\\u4e2a\\u5c0f\\u529f\\u80fd\\u8fd8\\u662f\\u4e00\\u4e2a\\u5168\\u65b0\\u7684\\u7ad9\\u70b9\\uff0c\\u5728ThinkCMF\\u4e2d\\u4f60\\u53ea\\u662f\\u589e\\u52a0\\u4e86\\u4e00\\u4e2aAPP\\uff0c\\u6bcf\\u4e2a\\u72ec\\u7acb\\u8fd0\\u884c\\u4e92\\u4e0d\\u5f71\\u54cd\\uff0c\\u4fbf\\u4e8e\\u7075\\u6d3b\\u6269\\u5c55\\u548c\\u4e8c\\u6b21\\u5f00\\u53d1\\u3002\"},{\"title\":\"\\u514d\\u8d39\\u5f00\\u6e90\",\"icon\":\"certificate\",\"content\":\"\\u4ee3\\u7801\\u9075\\u5faaApache2\\u5f00\\u6e90\\u534f\\u8bae\\uff0c\\u514d\\u8d39\\u4f7f\\u7528\\uff0c\\u5bf9\\u5546\\u4e1a\\u7528\\u6237\\u4e5f\\u65e0\\u4efb\\u4f55\\u9650\\u5236\\u3002\"}],\"type\":\"array\",\"item\":{\"title\":{\"title\":\"\\u6807\\u9898\",\"value\":\"\",\"type\":\"text\",\"rule\":{\"require\":true}},\"icon\":{\"title\":\"\\u56fe\\u6807\",\"value\":\"\",\"type\":\"text\"},\"content\":{\"title\":\"\\u63cf\\u8ff0\",\"value\":\"\",\"type\":\"textarea\"}},\"tip\":\"\"}}},\"last_news\":{\"title\":\"\\u6700\\u65b0\\u8d44\\u8baf\",\"display\":\"1\",\"vars\":{\"last_news_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/Category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', '{\"vars\":{\"top_slide\":{\"title\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"admin\\/Slide\\/index\",\"multi\":false},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"tip\":\"\\u9876\\u90e8\\u5e7b\\u706f\\u7247\",\"rule\":{\"require\":true}}},\"widgets\":{\"features\":{\"title\":\"\\u5feb\\u901f\\u4e86\\u89e3ThinkCMF\",\"display\":\"1\",\"vars\":{\"sub_title\":{\"title\":\"\\u526f\\u6807\\u9898\",\"value\":\"Quickly understand the ThinkCMF\",\"type\":\"text\",\"placeholder\":\"\\u8bf7\\u8f93\\u5165\\u526f\\u6807\\u9898\",\"tip\":\"\",\"rule\":{\"require\":true}},\"features\":{\"title\":\"\\u7279\\u6027\\u4ecb\\u7ecd\",\"value\":[{\"title\":\"MVC\\u5206\\u5c42\\u6a21\\u5f0f\",\"icon\":\"bars\",\"content\":\"\\u4f7f\\u7528MVC\\u5e94\\u7528\\u7a0b\\u5e8f\\u88ab\\u5206\\u6210\\u4e09\\u4e2a\\u6838\\u5fc3\\u90e8\\u4ef6\\uff1a\\u6a21\\u578b\\uff08M\\uff09\\u3001\\u89c6\\u56fe\\uff08V\\uff09\\u3001\\u63a7\\u5236\\u5668\\uff08C\\uff09\\uff0c\\u4ed6\\u4e0d\\u662f\\u4e00\\u4e2a\\u65b0\\u7684\\u6982\\u5ff5\\uff0c\\u53ea\\u662fThinkCMF\\u5c06\\u5176\\u53d1\\u6325\\u5230\\u4e86\\u6781\\u81f4\\u3002\"},{\"title\":\"\\u7528\\u6237\\u7ba1\\u7406\",\"icon\":\"group\",\"content\":\"ThinkCMF\\u5185\\u7f6e\\u4e86\\u7075\\u6d3b\\u7684\\u7528\\u6237\\u7ba1\\u7406\\u65b9\\u5f0f\\uff0c\\u5e76\\u53ef\\u76f4\\u63a5\\u4e0e\\u7b2c\\u4e09\\u65b9\\u7ad9\\u70b9\\u8fdb\\u884c\\u4e92\\u8054\\u4e92\\u901a\\uff0c\\u5982\\u679c\\u4f60\\u613f\\u610f\\u751a\\u81f3\\u53ef\\u4ee5\\u5bf9\\u5355\\u4e2a\\u7528\\u6237\\u6216\\u7fa4\\u4f53\\u7528\\u6237\\u7684\\u884c\\u4e3a\\u8fdb\\u884c\\u8bb0\\u5f55\\u53ca\\u5206\\u4eab\\uff0c\\u4e3a\\u60a8\\u7684\\u8fd0\\u8425\\u51b3\\u7b56\\u63d0\\u4f9b\\u6709\\u6548\\u53c2\\u8003\\u6570\\u636e\\u3002\"},{\"title\":\"\\u4e91\\u7aef\\u90e8\\u7f72\",\"icon\":\"cloud\",\"content\":\"\\u901a\\u8fc7\\u9a71\\u52a8\\u7684\\u65b9\\u5f0f\\u53ef\\u4ee5\\u8f7b\\u677e\\u652f\\u6301\\u4e91\\u5e73\\u53f0\\u7684\\u90e8\\u7f72\\uff0c\\u8ba9\\u4f60\\u7684\\u7f51\\u7ad9\\u65e0\\u7f1d\\u8fc1\\u79fb\\uff0c\\u5185\\u7f6e\\u5df2\\u7ecf\\u652f\\u6301SAE\\u3001BAE\\uff0c\\u6b63\\u5f0f\\u7248\\u5c06\\u5bf9\\u4e91\\u7aef\\u90e8\\u7f72\\u8fdb\\u884c\\u8fdb\\u4e00\\u6b65\\u4f18\\u5316\\u3002\"},{\"title\":\"\\u5b89\\u5168\\u7b56\\u7565\",\"icon\":\"heart\",\"content\":\"\\u63d0\\u4f9b\\u7684\\u7a33\\u5065\\u7684\\u5b89\\u5168\\u7b56\\u7565\\uff0c\\u5305\\u62ec\\u5907\\u4efd\\u6062\\u590d\\uff0c\\u5bb9\\u9519\\uff0c\\u9632\\u6cbb\\u6076\\u610f\\u653b\\u51fb\\u767b\\u9646\\uff0c\\u7f51\\u9875\\u9632\\u7be1\\u6539\\u7b49\\u591a\\u9879\\u5b89\\u5168\\u7ba1\\u7406\\u529f\\u80fd\\uff0c\\u4fdd\\u8bc1\\u7cfb\\u7edf\\u5b89\\u5168\\uff0c\\u53ef\\u9760\\uff0c\\u7a33\\u5b9a\\u7684\\u8fd0\\u884c\\u3002\"},{\"title\":\"\\u5e94\\u7528\\u6a21\\u5757\\u5316\",\"icon\":\"cubes\",\"content\":\"\\u63d0\\u51fa\\u5168\\u65b0\\u7684\\u5e94\\u7528\\u6a21\\u5f0f\\u8fdb\\u884c\\u6269\\u5c55\\uff0c\\u4e0d\\u7ba1\\u662f\\u4f60\\u5f00\\u53d1\\u4e00\\u4e2a\\u5c0f\\u529f\\u80fd\\u8fd8\\u662f\\u4e00\\u4e2a\\u5168\\u65b0\\u7684\\u7ad9\\u70b9\\uff0c\\u5728ThinkCMF\\u4e2d\\u4f60\\u53ea\\u662f\\u589e\\u52a0\\u4e86\\u4e00\\u4e2aAPP\\uff0c\\u6bcf\\u4e2a\\u72ec\\u7acb\\u8fd0\\u884c\\u4e92\\u4e0d\\u5f71\\u54cd\\uff0c\\u4fbf\\u4e8e\\u7075\\u6d3b\\u6269\\u5c55\\u548c\\u4e8c\\u6b21\\u5f00\\u53d1\\u3002\"},{\"title\":\"\\u514d\\u8d39\\u5f00\\u6e90\",\"icon\":\"certificate\",\"content\":\"\\u4ee3\\u7801\\u9075\\u5faaApache2\\u5f00\\u6e90\\u534f\\u8bae\\uff0c\\u514d\\u8d39\\u4f7f\\u7528\\uff0c\\u5bf9\\u5546\\u4e1a\\u7528\\u6237\\u4e5f\\u65e0\\u4efb\\u4f55\\u9650\\u5236\\u3002\"}],\"type\":\"array\",\"item\":{\"title\":{\"title\":\"\\u6807\\u9898\",\"value\":\"\",\"type\":\"text\",\"rule\":{\"require\":true}},\"icon\":{\"title\":\"\\u56fe\\u6807\",\"value\":\"\",\"type\":\"text\"},\"content\":{\"title\":\"\\u63cf\\u8ff0\",\"value\":\"\",\"type\":\"textarea\"}},\"tip\":\"\"}}},\"last_news\":{\"title\":\"\\u6700\\u65b0\\u8d44\\u8baf\",\"display\":\"1\",\"vars\":{\"last_news_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/Category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', NULL),
+(4, 0, 10, 'simpleboot3', '文章列表页', 'portal/List/index', 'portal/list', '文章列表模板文件', '{\"vars\":[],\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', '{\"vars\":[],\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', NULL),
+(5, 0, 10, 'simpleboot3', '单页面', 'portal/Page/index', 'portal/page', '单页面模板文件', '{\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', '{\"widgets\":{\"hottest_articles\":{\"title\":\"\\u70ed\\u95e8\\u6587\\u7ae0\",\"display\":\"1\",\"vars\":{\"hottest_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}},\"last_articles\":{\"title\":\"\\u6700\\u65b0\\u53d1\\u5e03\",\"display\":\"1\",\"vars\":{\"last_articles_category_id\":{\"title\":\"\\u6587\\u7ae0\\u5206\\u7c7bID\",\"value\":\"\",\"type\":\"text\",\"dataSource\":{\"api\":\"portal\\/category\\/index\",\"multi\":true},\"placeholder\":\"\\u8bf7\\u9009\\u62e9\\u5206\\u7c7b\",\"tip\":\"\",\"rule\":{\"require\":true}}}}}}', NULL),
+(6, 0, 10, 'simpleboot3', '搜索页面', 'portal/search/index', 'portal/search', '搜索模板文件', '{\"vars\":{\"varName1\":{\"title\":\"\\u70ed\\u95e8\\u641c\\u7d22\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\\u8fd9\\u662f\\u4e00\\u4e2atext\",\"rule\":{\"require\":true}}}}', '{\"vars\":{\"varName1\":{\"title\":\"\\u70ed\\u95e8\\u641c\\u7d22\",\"value\":\"1\",\"type\":\"text\",\"tip\":\"\\u8fd9\\u662f\\u4e00\\u4e2atext\",\"rule\":{\"require\":true}}}}', NULL),
+(7, 1, 0, 'simpleboot3', '模板全局配置', 'public/Config', 'public/config', '模板全局配置文件', '{\"vars\":{\"enable_mobile\":{\"title\":\"\\u624b\\u673a\\u6ce8\\u518c\",\"value\":1,\"type\":\"select\",\"options\":{\"1\":\"\\u5f00\\u542f\",\"0\":\"\\u5173\\u95ed\"},\"tip\":\"\"}}}', '{\"vars\":{\"enable_mobile\":{\"title\":\"\\u624b\\u673a\\u6ce8\\u518c\",\"value\":1,\"type\":\"select\",\"options\":{\"1\":\"\\u5f00\\u542f\",\"0\":\"\\u5173\\u95ed\"},\"tip\":\"\"}}}', NULL),
+(8, 1, 1, 'simpleboot3', '导航条', 'public/Nav', 'public/nav', '导航条模板文件', '{\"vars\":{\"company_name\":{\"title\":\"\\u516c\\u53f8\\u540d\\u79f0\",\"name\":\"company_name\",\"value\":\"ThinkCMF\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', '{\"vars\":{\"company_name\":{\"title\":\"\\u516c\\u53f8\\u540d\\u79f0\",\"name\":\"company_name\",\"value\":\"ThinkCMF\",\"type\":\"text\",\"tip\":\"\",\"rule\":[]}}}', NULL);
 
 -- --------------------------------------------------------
 
@@ -765,8 +1016,9 @@ CREATE TABLE `shop_theme_file` (
 -- 表的结构 `shop_third_party_user`
 --
 
-CREATE TABLE `shop_third_party_user` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_third_party_user`;
+CREATE TABLE IF NOT EXISTS `shop_third_party_user` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '本站用户id',
   `last_login_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '最后登录时间',
   `expire_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'access_token过期时间',
@@ -780,7 +1032,8 @@ CREATE TABLE `shop_third_party_user` (
   `access_token` varchar(512) NOT NULL DEFAULT '' COMMENT '第三方授权码',
   `openid` varchar(40) NOT NULL DEFAULT '' COMMENT '第三方用户id',
   `union_id` varchar(64) NOT NULL DEFAULT '' COMMENT '第三方用户多个产品中的惟一 id,(如:微信平台)',
-  `more` text COMMENT '扩展信息'
+  `more` text COMMENT '扩展信息',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='第三方用户表';
 
 -- --------------------------------------------------------
@@ -789,8 +1042,9 @@ CREATE TABLE `shop_third_party_user` (
 -- 表的结构 `shop_user`
 --
 
-CREATE TABLE `shop_user` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_user`;
+CREATE TABLE IF NOT EXISTS `shop_user` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_type` tinyint(3) UNSIGNED NOT NULL DEFAULT '1' COMMENT '用户类型;1:admin;2:会员',
   `sex` tinyint(2) NOT NULL DEFAULT '0' COMMENT '性别;0:保密,1:男,2:女',
   `birthday` int(11) NOT NULL DEFAULT '0' COMMENT '生日',
@@ -810,15 +1064,18 @@ CREATE TABLE `shop_user` (
   `last_login_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '最后登录ip',
   `user_activation_key` varchar(60) NOT NULL DEFAULT '' COMMENT '激活码',
   `mobile` varchar(20) NOT NULL DEFAULT '' COMMENT '中国手机不带国家代码，国际手机号格式为：国家代码-手机号',
-  `more` text COMMENT '扩展属性'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
+  `more` text COMMENT '扩展属性',
+  PRIMARY KEY (`id`),
+  KEY `user_login` (`user_login`),
+  KEY `user_nickname` (`user_nickname`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
 
 --
 -- 转存表中的数据 `shop_user`
 --
 
 INSERT INTO `shop_user` (`id`, `user_type`, `sex`, `birthday`, `last_login_time`, `score`, `coin`, `balance`, `create_time`, `user_status`, `user_login`, `user_pass`, `user_nickname`, `user_email`, `user_url`, `avatar`, `signature`, `last_login_ip`, `user_activation_key`, `mobile`, `more`) VALUES
-(1, 1, 0, 0, 0, 0, 0, '0.00', 1558449497, 1, 'admin', '###69279ce14485ded53a2be9535e59f5dd', 'admin', '123@qq.com', '', '', '', '', '', '', NULL);
+(1, 1, 0, 0, 1558450798, 0, 0, '0.00', 1558449497, 1, 'admin', '###69279ce14485ded53a2be9535e59f5dd', 'admin', '123@qq.com', '', '', '', '::1', '', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -826,8 +1083,9 @@ INSERT INTO `shop_user` (`id`, `user_type`, `sex`, `birthday`, `last_login_time`
 -- 表的结构 `shop_user_action`
 --
 
-CREATE TABLE `shop_user_action` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `shop_user_action`;
+CREATE TABLE IF NOT EXISTS `shop_user_action` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '更改积分，可以为负',
   `coin` int(11) NOT NULL DEFAULT '0' COMMENT '更改金币，可以为负',
   `reward_number` int(11) NOT NULL DEFAULT '0' COMMENT '奖励次数',
@@ -836,8 +1094,9 @@ CREATE TABLE `shop_user_action` (
   `name` varchar(50) NOT NULL DEFAULT '' COMMENT '用户操作名称',
   `action` varchar(50) NOT NULL DEFAULT '' COMMENT '用户操作名称',
   `app` varchar(50) NOT NULL DEFAULT '' COMMENT '操作所在应用名或插件名等',
-  `url` text COMMENT '执行操作的url'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户操作表';
+  `url` text COMMENT '执行操作的url',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户操作表';
 
 --
 -- 转存表中的数据 `shop_user_action`
@@ -852,14 +1111,18 @@ INSERT INTO `shop_user_action` (`id`, `score`, `coin`, `reward_number`, `cycle_t
 -- 表的结构 `shop_user_action_log`
 --
 
-CREATE TABLE `shop_user_action_log` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_user_action_log`;
+CREATE TABLE IF NOT EXISTS `shop_user_action_log` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
   `count` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '访问次数',
   `last_visit_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '最后访问时间',
   `object` varchar(100) NOT NULL DEFAULT '' COMMENT '访问对象的id,格式:不带前缀的表名+id;如posts1表示xx_posts表里id为1的记录',
   `action` varchar(50) NOT NULL DEFAULT '' COMMENT '操作名称;格式:应用名+控制器+操作名,也可自己定义格式只要不发生冲突且惟一;',
-  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '用户ip'
+  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '用户ip',
+  PRIMARY KEY (`id`),
+  KEY `user_object_action` (`user_id`,`object`,`action`),
+  KEY `user_object_action_ip` (`user_id`,`object`,`action`,`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='访问记录表';
 
 -- --------------------------------------------------------
@@ -868,14 +1131,16 @@ CREATE TABLE `shop_user_action_log` (
 -- 表的结构 `shop_user_balance_log`
 --
 
-CREATE TABLE `shop_user_balance_log` (
-  `id` int(10) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_user_balance_log`;
+CREATE TABLE IF NOT EXISTS `shop_user_balance_log` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户 id',
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `change` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '更改余额',
   `balance` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '更改后余额',
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
-  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注'
+  `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户余额变更日志表';
 
 -- --------------------------------------------------------
@@ -884,8 +1149,9 @@ CREATE TABLE `shop_user_balance_log` (
 -- 表的结构 `shop_user_favorite`
 --
 
-CREATE TABLE `shop_user_favorite` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_user_favorite`;
+CREATE TABLE IF NOT EXISTS `shop_user_favorite` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户 id',
   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '收藏内容的标题',
   `thumbnail` varchar(100) NOT NULL DEFAULT '' COMMENT '缩略图',
@@ -893,7 +1159,9 @@ CREATE TABLE `shop_user_favorite` (
   `description` text COMMENT '收藏内容的描述',
   `table_name` varchar(64) NOT NULL DEFAULT '' COMMENT '收藏实体以前所在表,不带前缀',
   `object_id` int(10) UNSIGNED DEFAULT '0' COMMENT '收藏内容原来的主键id',
-  `create_time` int(10) UNSIGNED DEFAULT '0' COMMENT '收藏时间'
+  `create_time` int(10) UNSIGNED DEFAULT '0' COMMENT '收藏时间',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户收藏表';
 
 -- --------------------------------------------------------
@@ -902,8 +1170,9 @@ CREATE TABLE `shop_user_favorite` (
 -- 表的结构 `shop_user_like`
 --
 
-CREATE TABLE `shop_user_like` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_user_like`;
+CREATE TABLE IF NOT EXISTS `shop_user_like` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户 id',
   `object_id` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '内容原来的主键id',
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -911,7 +1180,9 @@ CREATE TABLE `shop_user_like` (
   `url` varchar(255) NOT NULL DEFAULT '' COMMENT '内容的原文地址，不带域名',
   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '内容的标题',
   `thumbnail` varchar(100) NOT NULL DEFAULT '' COMMENT '缩略图',
-  `description` text COMMENT '内容的描述'
+  `description` text COMMENT '内容的描述',
+  PRIMARY KEY (`id`),
+  KEY `uid` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户点赞表';
 
 -- --------------------------------------------------------
@@ -920,13 +1191,15 @@ CREATE TABLE `shop_user_like` (
 -- 表的结构 `shop_user_login_attempt`
 --
 
-CREATE TABLE `shop_user_login_attempt` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+DROP TABLE IF EXISTS `shop_user_login_attempt`;
+CREATE TABLE IF NOT EXISTS `shop_user_login_attempt` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
   `login_attempts` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '尝试次数',
   `attempt_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '尝试登录时间',
   `locked_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '锁定时间',
   `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '用户 ip',
-  `account` varchar(100) NOT NULL DEFAULT '' COMMENT '用户账号,手机号,邮箱或用户名'
+  `account` varchar(100) NOT NULL DEFAULT '' COMMENT '用户账号,手机号,邮箱或用户名',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户登录尝试表' ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
@@ -935,13 +1208,15 @@ CREATE TABLE `shop_user_login_attempt` (
 -- 表的结构 `shop_user_score_log`
 --
 
-CREATE TABLE `shop_user_score_log` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `shop_user_score_log`;
+CREATE TABLE IF NOT EXISTS `shop_user_score_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户 id',
   `create_time` int(11) NOT NULL DEFAULT '0' COMMENT '创建时间',
   `action` varchar(50) NOT NULL DEFAULT '' COMMENT '用户操作名称',
   `score` int(11) NOT NULL DEFAULT '0' COMMENT '更改积分，可以为负',
-  `coin` int(11) NOT NULL DEFAULT '0' COMMENT '更改金币，可以为负'
+  `coin` int(11) NOT NULL DEFAULT '0' COMMENT '更改金币，可以为负',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户操作积分等奖励日志表';
 
 -- --------------------------------------------------------
@@ -950,14 +1225,23 @@ CREATE TABLE `shop_user_score_log` (
 -- 表的结构 `shop_user_token`
 --
 
-CREATE TABLE `shop_user_token` (
-  `id` bigint(20) NOT NULL,
+DROP TABLE IF EXISTS `shop_user_token`;
+CREATE TABLE IF NOT EXISTS `shop_user_token` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户id',
   `expire_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT ' 过期时间',
   `create_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '创建时间',
   `token` varchar(64) NOT NULL DEFAULT '' COMMENT 'token',
-  `device_type` varchar(10) NOT NULL DEFAULT '' COMMENT '设备类型;mobile,android,iphone,ipad,web,pc,mac,wxapp'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户客户端登录 token 表';
+  `device_type` varchar(10) NOT NULL DEFAULT '' COMMENT '设备类型;mobile,android,iphone,ipad,web,pc,mac,wxapp',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户客户端登录 token 表';
+
+--
+-- 转存表中的数据 `shop_user_token`
+--
+
+INSERT INTO `shop_user_token` (`id`, `user_id`, `expire_time`, `create_time`, `token`, `device_type`) VALUES
+(1, 1, 1574002798, 1558450798, '68d49ba2952ed3b4a754cd90da270192d3d2e5e53708b8a5376aaa211dbbbcf8', 'web');
 
 -- --------------------------------------------------------
 
@@ -965,419 +1249,16 @@ CREATE TABLE `shop_user_token` (
 -- 表的结构 `shop_verification_code`
 --
 
-CREATE TABLE `shop_verification_code` (
-  `id` bigint(20) UNSIGNED NOT NULL COMMENT '表id',
+DROP TABLE IF EXISTS `shop_verification_code`;
+CREATE TABLE IF NOT EXISTS `shop_verification_code` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '表id',
   `count` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '当天已经发送成功的次数',
   `send_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '最后发送成功时间',
   `expire_time` int(10) UNSIGNED NOT NULL DEFAULT '0' COMMENT '验证码过期时间',
   `code` varchar(8) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '最后发送成功的验证码',
-  `account` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '手机号或者邮箱'
+  `account` varchar(100) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '手机号或者邮箱',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='手机邮箱数字验证码表';
-
---
--- 转储表的索引
---
-
---
--- 表的索引 `shop_admin_menu`
---
-ALTER TABLE `shop_admin_menu`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `status` (`status`),
-  ADD KEY `parent_id` (`parent_id`),
-  ADD KEY `controller` (`controller`);
-
---
--- 表的索引 `shop_asset`
---
-ALTER TABLE `shop_asset`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_auth_access`
---
-ALTER TABLE `shop_auth_access`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `role_id` (`role_id`),
-  ADD KEY `rule_name` (`rule_name`) USING BTREE;
-
---
--- 表的索引 `shop_auth_rule`
---
-ALTER TABLE `shop_auth_rule`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `name` (`name`) USING BTREE,
-  ADD KEY `module` (`app`,`status`,`type`);
-
---
--- 表的索引 `shop_comment`
---
-ALTER TABLE `shop_comment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `table_id_status` (`table_name`,`object_id`,`status`),
-  ADD KEY `object_id` (`object_id`) USING BTREE,
-  ADD KEY `status` (`status`) USING BTREE,
-  ADD KEY `parent_id` (`parent_id`) USING BTREE,
-  ADD KEY `create_time` (`create_time`) USING BTREE;
-
---
--- 表的索引 `shop_hook`
---
-ALTER TABLE `shop_hook`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_hook_plugin`
---
-ALTER TABLE `shop_hook_plugin`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_link`
---
-ALTER TABLE `shop_link`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `status` (`status`);
-
---
--- 表的索引 `shop_nav`
---
-ALTER TABLE `shop_nav`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_nav_menu`
---
-ALTER TABLE `shop_nav_menu`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_option`
---
-ALTER TABLE `shop_option`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `option_name` (`option_name`);
-
---
--- 表的索引 `shop_plugin`
---
-ALTER TABLE `shop_plugin`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_recycle_bin`
---
-ALTER TABLE `shop_recycle_bin`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_role`
---
-ALTER TABLE `shop_role`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `parent_id` (`parent_id`),
-  ADD KEY `status` (`status`);
-
---
--- 表的索引 `shop_role_user`
---
-ALTER TABLE `shop_role_user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `role_id` (`role_id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- 表的索引 `shop_route`
---
-ALTER TABLE `shop_route`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_slide`
---
-ALTER TABLE `shop_slide`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_slide_item`
---
-ALTER TABLE `shop_slide_item`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `slide_id` (`slide_id`);
-
---
--- 表的索引 `shop_theme`
---
-ALTER TABLE `shop_theme`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_theme_file`
---
-ALTER TABLE `shop_theme_file`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_third_party_user`
---
-ALTER TABLE `shop_third_party_user`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_user`
---
-ALTER TABLE `shop_user`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_login` (`user_login`),
-  ADD KEY `user_nickname` (`user_nickname`);
-
---
--- 表的索引 `shop_user_action`
---
-ALTER TABLE `shop_user_action`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_user_action_log`
---
-ALTER TABLE `shop_user_action_log`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_object_action` (`user_id`,`object`,`action`),
-  ADD KEY `user_object_action_ip` (`user_id`,`object`,`action`,`ip`);
-
---
--- 表的索引 `shop_user_balance_log`
---
-ALTER TABLE `shop_user_balance_log`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_user_favorite`
---
-ALTER TABLE `shop_user_favorite`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `uid` (`user_id`);
-
---
--- 表的索引 `shop_user_like`
---
-ALTER TABLE `shop_user_like`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `uid` (`user_id`);
-
---
--- 表的索引 `shop_user_login_attempt`
---
-ALTER TABLE `shop_user_login_attempt`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_user_score_log`
---
-ALTER TABLE `shop_user_score_log`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_user_token`
---
-ALTER TABLE `shop_user_token`
-  ADD PRIMARY KEY (`id`);
-
---
--- 表的索引 `shop_verification_code`
---
-ALTER TABLE `shop_verification_code`
-  ADD PRIMARY KEY (`id`);
-
---
--- 在导出的表使用AUTO_INCREMENT
---
-
---
--- 使用表AUTO_INCREMENT `shop_admin_menu`
---
-ALTER TABLE `shop_admin_menu`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=162;
-
---
--- 使用表AUTO_INCREMENT `shop_asset`
---
-ALTER TABLE `shop_asset`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_auth_access`
---
-ALTER TABLE `shop_auth_access`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_auth_rule`
---
-ALTER TABLE `shop_auth_rule`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '规则id,自增主键', AUTO_INCREMENT=162;
-
---
--- 使用表AUTO_INCREMENT `shop_comment`
---
-ALTER TABLE `shop_comment`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_hook`
---
-ALTER TABLE `shop_hook`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
-
---
--- 使用表AUTO_INCREMENT `shop_hook_plugin`
---
-ALTER TABLE `shop_hook_plugin`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_link`
---
-ALTER TABLE `shop_link`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `shop_nav`
---
-ALTER TABLE `shop_nav`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- 使用表AUTO_INCREMENT `shop_nav_menu`
---
-ALTER TABLE `shop_nav_menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `shop_option`
---
-ALTER TABLE `shop_option`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `shop_plugin`
---
-ALTER TABLE `shop_plugin`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id';
-
---
--- 使用表AUTO_INCREMENT `shop_recycle_bin`
---
-ALTER TABLE `shop_recycle_bin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_role`
---
-ALTER TABLE `shop_role`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- 使用表AUTO_INCREMENT `shop_role_user`
---
-ALTER TABLE `shop_role_user`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_route`
---
-ALTER TABLE `shop_route`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '路由id';
-
---
--- 使用表AUTO_INCREMENT `shop_slide`
---
-ALTER TABLE `shop_slide`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_slide_item`
---
-ALTER TABLE `shop_slide_item`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_theme`
---
-ALTER TABLE `shop_theme`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `shop_theme_file`
---
-ALTER TABLE `shop_theme_file`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_third_party_user`
---
-ALTER TABLE `shop_third_party_user`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_user`
---
-ALTER TABLE `shop_user`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `shop_user_action`
---
-ALTER TABLE `shop_user_action`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- 使用表AUTO_INCREMENT `shop_user_action_log`
---
-ALTER TABLE `shop_user_action_log`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_user_balance_log`
---
-ALTER TABLE `shop_user_balance_log`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_user_favorite`
---
-ALTER TABLE `shop_user_favorite`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_user_like`
---
-ALTER TABLE `shop_user_like`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_user_login_attempt`
---
-ALTER TABLE `shop_user_login_attempt`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_user_score_log`
---
-ALTER TABLE `shop_user_score_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_user_token`
---
-ALTER TABLE `shop_user_token`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
---
--- 使用表AUTO_INCREMENT `shop_verification_code`
---
-ALTER TABLE `shop_verification_code`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '表id';
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
