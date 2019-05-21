@@ -9,12 +9,96 @@
 </head>
 <body class="body-white">
 <include file="public@nav"/>
-<div class="container">
+
+<div id="first"><!--最上面的登陆欢迎栏-->
+    <a id="welcome-slogen" href="#">欢迎来到聚美!</a>
+    <a id="login" href="注册页.html">请登录</a>
+    <a id="register" href="注册页.html">快速注册</a>
+    <a id="promise" href="正品保证.html">正品保证</a>
+    <a id="order-search" href="#">订单查询</a>
+    <a id="brand-collection" href="收藏.html">收藏的品牌</a>
+    <a id="my-jumei" href="#">我的聚美</a>
+    <a id="phone-jumei" href="购物车.html">购物车</a>
+    <a id="more" href="{:cmf_url('portal/tag/index')}">更多</a>
+</div>
+
+<div id="second"><!--聚美logo及搜索-->
+    <a href="毕业设计主页.html"><img id="logo" src="../../../static/images/pic/logo.jpg"></a>
+    <input id="mainsearch" type="text" name="search">
+    <div id="search"><a id="sub-search" href="#">搜索</a></div>
+    <a id="good-text" class="good"  href="#"></a>
+    <a id="one" class="common" href="保湿加购物车.html"><span>保湿</span></a>
+    <span id="gap1" class="gap">|</span>
+    <a id="two" class="common" href="面膜.html"><span>面膜</span></a>
+    <span id="gap2" class="gap">|</span>
+    <a id="three" class="common" href="洗面奶.html"><span>洗面奶</span></a>
+    <span id="gap3" class="gap">|</span>
+    <a id="four" class="common" href="补水.html"><span>补水</span></a>
+    <span id="gap4" class="gap">|</span>
+    <a id="five" class="common" href="香水.html"><span>香水</span></a>
+    <span id="gap5" class="gap">|</span>
+    <a id="six" class="common" href="眼霜.html"><span>眼霜</span></a>
+    <span id="gap6" class="gap">|</span>
+    <a id="seven" class="common" href="口红.html"><span>口红</span></a>
+    <span id="gap7" class="gap">|</span>
+    <a id="eight" class="common" href="护肤套装.html"><span>护肤套装</span></a>
+    <span id="gap8" class="gap">|</span>
+    <a id="nine" class="common" href="BB霜.html"><span>BB霜</span></a>
+</div>
+
+<div id="third"><!--首页等标签栏-->
+    <span id="third1" href="毕业设计主页.html" class="common1"><span id="third-text">首页</span></span>
+    <a class="third2" href="敬请期待.html"><span>极速免税店</span></a>
+    <a class="third2" href="敬请期待.html" ><span>母婴特卖</span></a>
+    <a class="third2" href="#" ><span>美妆商城</span></a>
+    <a class="third2" href="敬请期待.html" ><span>国际轻奢</span></a>
+    <a class="third2" href="敬请期待.html" ><span>服装运动</span></a>
+    <a class="third2" href="敬请期待.html" ><span>鞋包配饰</span></a>
+    <img id="third-img" src="../../../static/images/pic/third.jpg">
+</div>
+
+<div id="fouth"><!--商品-->
+    <div id="fouth1" class="fouth-border">
+        <a href="保湿商品1.html">
+            <img class="fouth-img" src="../../../static/images/pic/a1.png">
+            <span id="fone" class="fouth-text">理肤泉B5多效修护霜100ml</span>
+        </a>
+        <span class="fouth-subtext">月销49062</span>
+        <span class="price">¥ 198 </span>
+        <input class="fouth-buttons" id="a" type="button" value="加购物车">
+        <input class="fouth-buttons1" id="b" type="button" value="收藏">
+    </div>
+    <div id="fouth2" class="fouth-border">
+        <a href="保湿商品2.html">
+            <img class="fouth-img" src="../../../static/images/pic/a2.jpg">
+            <span class="fouth-text">G&M绵羊油维生素E面霜 250g</span>
+        </a>
+        <span class="fouth-subtext">月销11128</span>
+        <span class="price">¥ 35</span>
+        <input class="fouth-buttons" id="a1" type="button" value="加购物车">
+        <input class="fouth-buttons1" id="b1" type="button" value="收藏">
+    </div>
+
+
+
+
+    <div id="fifth"><!--翻页-->
+        <span class="fifth1" id="f1"><a href="保湿加购物车.html">1</a></span>
+        <span class="fifth1" id="f3"><a href="保湿加购物车1.html">2</a></span>
+        <span class="fifth1" id="fif1"><a href="保湿加购物车2.html">3</a></span>
+        <span class="fifth1" id="fif2"><a href="保湿加购物车3.html">4</a></span>
+        <span class="fifth1" id="fif3"><a href="保湿加购物车4.html">5</a></span>
+        <span id="f2"><a href="保湿加购物车1.html">下一页</a></span>
+    </div>
+</div>
+
+
+<!--<div class="container">-->
     <php>$demo_time=2;</php>
-    <h2>{$category.name}</h2>
-    <div class="row">
-        <div class="col-md-9">
-            <div class="">
+<!--    <h2>{$category.name}</h2>-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-9">-->
+<!--            <div class="">-->
                 <php>
                     $where= function($query){
                         $query->where('post.create_time','egt',0);
@@ -25,108 +109,334 @@
                         'prev'=>'上一页'
                     ];
                 </php>
-                <portal:articles item="vo" where="$where" order="post.create_time DESC" page="$page"
-                                 relation="categories"
-                                 categoryIds="$category.id"
-                                 returnVarName="articles_data">
-                    <div class="list-boxes">
-                        <h2><a href="{:cmf_url('portal/Article/index',array('id'=>$vo['id'],'cid'=>$category['id']))}">{$vo.post_title}</a>
-                        </h2>
-                        <p>{$vo.post_excerpt}</p>
-                        <div>
-                            <div class="pull-left">
-                                <div class="list-actions">
-                                    <a href="javascript:;"><i class="fa fa-eye"></i><span>{$vo.post_hits}</span></a>
-                                    <a href="{:url('portal/Article/doLike',array('id'=>$vo['id']))}"
-                                       class="js-count-btn"><i class="fa fa-thumbs-up"></i><span class="count">{$vo.post_like}</span></a>
-                                    <a href="{:url('user/Favorite/add',array('id'=>$vo['id'],'cid'=>$category['id']))}"
-                                       class="js-favorite-btn"
-                                       data-id="{$vo.id}"
-                                       data-table="portal_post"
-                                       data-title="{:base64_encode($vo.post_title)}"
-                                       data-url="{:cmf_url_encode('portal/Article/index',array('id'=>$vo['id'],'cid'=>$category['id']))}"
-                                    >
-                                        <i class="fa fa-star-o"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <a class="btn btn-warning btn-sm pull-right"
-                               href="{:cmf_url('portal/Article/index',array('id'=>$vo['id'],'cid'=>$category['id']))}">查看更多</a>
-                        </div>
-                    </div>
-                </portal:articles>
+<!--                <portal:articles item="vo" where="$where" order="post.create_time DESC" page="$page"-->
+<!--                                 relation="categories"-->
+<!--                                 categoryIds="$category.id"-->
+<!--                                 returnVarName="articles_data">-->
+<!--                    <div class="list-boxes">-->
+<!--                        <h2><a href="{:cmf_url('portal/Article/index',array('id'=>$vo['id'],'cid'=>$category['id']))}">{$vo.post_title}</a>-->
+<!--                        </h2>-->
+<!--                        <p>{$vo.post_excerpt}</p>-->
+<!--                        <div>-->
+<!--                            <div class="pull-left">-->
+<!--                                <div class="list-actions">-->
+<!--                                    <a href="javascript:;"><i class="fa fa-eye"></i><span>{$vo.post_hits}</span></a>-->
+<!--                                    <a href="{:url('portal/Article/doLike',array('id'=>$vo['id']))}"-->
+<!--                                       class="js-count-btn"><i class="fa fa-thumbs-up"></i><span class="count">{$vo.post_like}</span></a>-->
+<!--                                    <a href="{:url('user/Favorite/add',array('id'=>$vo['id'],'cid'=>$category['id']))}"-->
+<!--                                       class="js-favorite-btn"-->
+<!--                                       data-id="{$vo.id}"-->
+<!--                                       data-table="portal_post"-->
+<!--                                       data-title="{:base64_encode($vo.post_title)}"-->
+<!--                                       data-url="{:cmf_url_encode('portal/Article/index',array('id'=>$vo['id'],'cid'=>$category['id']))}"-->
+<!--                                    >-->
+<!--                                        <i class="fa fa-star-o"></i>-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <a class="btn btn-warning btn-sm pull-right"-->
+<!--                               href="{:cmf_url('portal/Article/index',array('id'=>$vo['id'],'cid'=>$category['id']))}">查看更多</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </portal:articles>-->
 
-            </div>
-            <ul class="pagination">
-                <page/>
-            </ul>
-        </div>
-        <div class="col-md-3">
+<!--            </div>-->
+<!--            <ul class="pagination">-->
+<!--                <page/>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        <div class="col-md-3">-->
 
-            <widget name="hottest_articles">
-                <div class="tc-box">
-                    <div class="headtitle">
-                        <h2>{$widget.title}</h2>
-                    </div>
-                    <div class="ranking">
+<!--            <widget name="hottest_articles">-->
+<!--                <div class="tc-box">-->
+<!--                    <div class="headtitle">-->
+<!--                        <h2>{$widget.title}</h2>-->
+<!--                    </div>-->
+<!--                    <div class="ranking">-->
                         <php>
                             $hot_articles=[];
                         </php>
-                        <ul class="list-unstyled">
-                            <portal:articles limit="5" order="post.post_hits DESC"
-                                             categoryIds="$widget.vars.hottest_articles_category_id">
+<!--                        <ul class="list-unstyled">-->
+<!--                            <portal:articles limit="5" order="post.post_hits DESC"-->
+<!--                                             categoryIds="$widget.vars.hottest_articles_category_id">-->
                                 <php>$top=$key<3?"top3":"";</php>
-                                <li class="{$top}">
-                                    <i>{$key+1}</i>
-                                    <a title="{$vo.post_title}"
-                                       href="{:cmf_url('portal/Article/index',array('id'=>$vo['id']))}">
-                                        {$vo.post_title}
-                                    </a>
-                                </li>
-                            </portal:articles>
-                        </ul>
-                    </div>
-                </div>
-            </widget>
+<!--                                <li class="{$top}">-->
+<!--                                    <i>{$key+1}</i>-->
+<!--                                    <a title="{$vo.post_title}"-->
+<!--                                       href="{:cmf_url('portal/Article/index',array('id'=>$vo['id']))}">-->
+<!--                                        {$vo.post_title}-->
+<!--                                    </a>-->
+<!--                                </li>-->
+<!--                            </portal:articles>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </widget>-->
 
 
-            <widget name="last_articles">
-                <div class="tc-box">
-                    <div class="headtitle">
-                        <h2>{$widget.title}</h2>
-                    </div>
-                    <div class="posts">
-                        <portal:articles limit="5" order="post.published_time DESC"
-                                         categoryIds="$widget.vars.last_articles_category_id">
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    <a class="img-wraper"
-                                       href="{:cmf_url('portal/Article/index',array('id'=>$vo.id))}">
-                                        <if condition="empty($vo.more.thumbnail)">
-                                            <img src="__TMPL__/public/assets/images/default_tupian4.png"
-                                                 class="img-responsive" alt="{$vo.post_title}"/>
-                                            <else/>
-                                            <img src="{:cmf_get_image_url($vo.more.thumbnail)}"
-                                                 class="img-responsive" alt="{$vo.post_title}"/>
-                                        </if>
-                                    </a>
-                                </dt>
-                                <dd>
-                                    <a href="{:cmf_url('portal/Article/index',array('id'=>$vo['id']))}">{$vo.post_title}</a>
-                                </dd>
-                            </dl>
-                        </portal:articles>
-                    </div>
-                </div>
-            </widget>
+<!--            <widget name="last_articles">-->
+<!--                <div class="tc-box">-->
+<!--                    <div class="headtitle">-->
+<!--                        <h2>{$widget.title}</h2>-->
+<!--                    </div>-->
+<!--                    <div class="posts">-->
+<!--                        <portal:articles limit="5" order="post.published_time DESC"-->
+<!--                                         categoryIds="$widget.vars.last_articles_category_id">-->
+<!--                            <dl class="dl-horizontal">-->
+<!--                                <dt>-->
+<!--                                    <a class="img-wraper"-->
+<!--                                       href="{:cmf_url('portal/Article/index',array('id'=>$vo.id))}">-->
+<!--                                        <if condition="empty($vo.more.thumbnail)">-->
+<!--                                            <img src="__TMPL__/public/assets/images/default_tupian4.png"-->
+<!--                                                 class="img-responsive" alt="{$vo.post_title}"/>-->
+<!--                                            <else/>-->
+<!--                                            <img src="{:cmf_get_image_url($vo.more.thumbnail)}"-->
+<!--                                                 class="img-responsive" alt="{$vo.post_title}"/>-->
+<!--                                        </if>-->
+<!--                                    </a>-->
+<!--                                </dt>-->
+<!--                                <dd>-->
+<!--                                    <a href="{:cmf_url('portal/Article/index',array('id'=>$vo['id']))}">{$vo.post_title}</a>-->
+<!--                                </dd>-->
+<!--                            </dl>-->
+<!--                        </portal:articles>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </widget>-->
 
-        </div>
-    </div>
+<!--        </div>-->
+<!--    </div>-->
 
-    <include file="public@footer"/>
-</div>
+
+<!--</div>-->
 
 <include file="public@scripts"/>
 <hook name="before_body_end"/>
 </body>
+<style>
+    body{
+        margin: 0px;
+        height: 800px;
+    }
+    #first{
+        height: 30px;
+        background-color: rgb(242, 242, 242);
+        border-bottom:1px solid rgb(229, 229, 229);
+    }
+    a{
+        color: rgb(108, 108, 108);
+        font-size: 12px;
+        font-family: YouYuan;
+        text-decoration: none;
+        position: relative;
+        top: 4px;
+    }
+    a:hover{
+        color:rgb(230, 16, 86);
+    }
+    #welcome-slogen{
+        margin-left: 114px;
+    }
+    #login{
+        margin-left: 16px;
+    }
+    #register{
+        margin-left: 16px;
+    }
+    #promise{
+        margin-left: 520px;
+    }
+    #order-search{
+        margin-left: 16px;
+    }
+    #brand-collection{
+        margin-left: 16px;
+    }
+    #my-jumei{
+        margin-left: 16px;
+    }
+    #phone-jumei{
+        margin-left: 16px;
+    }
+    #more{
+        margin-left: 16px;
+    }
+
+    #second{
+        height: 110px;
+    }
+    #logo{
+        margin-left: 120px;
+        margin-top: 32px;
+    }
+    input{
+        width: 434px;
+        height: 32px;
+        border: 3px solid rgb(237, 20, 91);
+        position: relative;
+        top: -24px;
+        left: 120px;
+    }
+    #search{
+        width: 100px;
+        height: 34px;
+        background-color: rgb(237, 20, 91);
+        border: 3px solid rgb(237, 20, 91);
+        position: relative;
+        top: -64px;
+        left: 840px;
+    }
+    #sub-search{
+        margin-top: 13px;
+        margin-left: 32px;
+        font-size: 18px;
+        color: white;
+    }
+    #shopping-car-text{
+        width: 140px;
+        height: 32px;
+        background-color: rgb(242, 242, 242);
+        border:2px solid rgb(229, 229, 229);
+        border-radius: 6px;
+        color: rgb(102, 102, 102);
+        font-size: 11px;
+        text-align: center;
+        line-height: 24px;
+        position: relative;
+        top: -100px;
+        left: 1080px;
+    }
+    a:hover div{
+        color: rgb(241, 15, 89);
+    }
+    a:hover div{
+        color: rgb(241, 15, 89);
+    }
+    .common{
+        position: relative;
+        top: -60px;
+        left: 400px;
+    }
+    .gap{
+        position: relative;
+        top: -60px;
+        left: 400px;
+    }
+    #one{
+        color: rgb(241, 15, 89);
+    }
+
+    #third{
+        height: 38px;
+        background:-webkit-linear-gradient(top,rgb(38,38,38),rgb(19,19,19),rgb(6,6,6));
+    }
+    .common1{
+        position: relative;
+        top: -18px;
+        left: 120px;
+    }
+    #third-text{
+        font-family: YouYuan;
+        size: 18px;
+        color: white;
+        margin-left: 32px;
+        position: relative;
+        top: 10px;
+    }
+    .third2{
+        margin-left: 60px;
+        font-family: YouYuan;
+        color: white;
+        position: relative;
+        top:-10px;
+        left: 120px;
+    }
+    #third-img{
+        position: relative;
+        top: 0px;
+        left: 340px;
+    }
+
+    .fouth-border{
+        width: 96%;
+        height: 100px;
+        border: 1px solid rgb(102,102,102);
+        margin-bottom: 10px;
+        margin-left: 2%;
+    }
+    #fouth1{
+        margin-top: 10px;
+    }
+    .fouth-img{
+        width: 200px;
+        height: 90%;
+        margin-left: 0px;
+    }
+    .fouth-text{
+        font-size: 24px;
+        font-weight: 400;
+        margin-right: 30px;
+        margin-left: 10px;
+        position: relative;
+        top: -40px;
+    }
+    .fouth-subtext{
+        font-size: 18px;
+        font-weight: 400px;
+        margin-right: 20px;
+        color: rgb(102,102,102);
+        position: relative;
+        top: -40px;
+    }
+    .price{
+        font-size:30px;
+        color: rgb(237, 20, 91);
+        position: relative;
+        top:-40px;
+    }
+    .fouth-buttons{
+        color: white;
+        width: 100px;
+        background-color: rgb(237, 20, 91);
+        position: relative;
+        top: -44px;
+        left: 180px;
+    }
+    .fouth-buttons1{
+        color: white;
+        width: 80px;
+        background-color: rgb(237, 20, 91);
+        position: relative;
+        top: -44px;
+        left: 180px;
+    }
+
+
+    .fifth1{
+        font-size: 18px;
+        border: 1px solid rgb(102, 102, 102);
+        display: inline-block;
+        width: 24px;
+        height: 30px;
+        line-height: 20px;
+        text-align: center;
+        background-color: rgb(229, 229, 229);
+        margin-right: 10px;
+    }
+    #f1{
+        margin-left: 76%;
+        background-color: rgb(237, 20, 91);
+    }
+    #f2{
+        font-size: 18px;
+        color: black;
+        border: 1px solid rgb(102, 102, 102);
+        display: inline-block;
+        width: 56px;
+        height: 30px;
+        line-height: 20px;
+        text-align: center;
+        background-color: rgb(229, 229, 229);
+    }
+</style>
 </html>
