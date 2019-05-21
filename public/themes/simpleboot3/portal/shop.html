@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>购物车</title>
+
+    <include file="public@head"/>
+    <style>
+        #article_content img {
+            height: auto !important;
+            max-width: 100%;
+        }
+    </style>
+    <hook name="before_head_end"/>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+<div id="first"><!--最上面的登陆欢迎栏-->
+    <a id="welcome-slogen" href="#">欢迎来到聚美!</a>
+    <a id="promise" href="正品保证.html">正品保证</a>
+    <a id="order-search" href="订单查询.html">订单查询</a>
+    <a id="brand-collection" href="收藏.html">收藏的品牌</a>
+    <a id="my-jumei" href="#">我的聚美</a>
+    <a id="phone-jumei" href="{:cmf_url('portal/page/index')}">购物车</a>
+    <a id="more" href="{:cmf_url('portal/tag/index')}">更多</a>
+</div>
+
+<div id="second"><!--聚美logo及搜索-->
+    <a href="毕业设计主页.html"><img id="logo" src="../../../static/images/pic/logo.jpg"></a>
+    <input id="mainsearch" type="text" name="search">
+    <div id="search"><a id="sub-search" href="#">搜索</a></div>
+    <a id="good-text" class="good"  href="#"></a>
+    <a id="one" class="common" href="{:cmf_url('portal/list/index')}"><span>保湿</span></a>
+    <span id="gap1" class="gap">|</span>
+    <a id="two" class="common" href="面膜.html"><span>面膜</span></a>
+    <span id="gap2" class="gap">|</span>
+    <a id="three" class="common" href="洗面奶.html"><span>洗面奶</span></a>
+    <span id="gap3" class="gap">|</span>
+    <a id="four" class="common" href="补水.html"><span>补水</span></a>
+    <span id="gap4" class="gap">|</span>
+    <a id="five" class="common" href="香水.html"><span>香水</span></a>
+    <span id="gap5" class="gap">|</span>
+    <a id="six" class="common" href="眼霜.html"><span>眼霜</span></a>
+    <span id="gap6" class="gap">|</span>
+    <a id="seven" class="common" href="口红.html"><span>口红</span></a>
+    <span id="gap7" class="gap">|</span>
+    <a id="eight" class="common" href="护肤套装.html"><span>护肤套装</span></a>
+    <span id="gap8" class="gap">|</span>
+    <a id="nine" class="common" href="BB霜.html"><span>BB霜</span></a>
+</div>
+
+<div id="third"><!--首页等标签栏-->
+    <span id="third1" href="毕业设计主页.html" class="common1"><span id="third-text">首页</span></span>
+    <a class="third2" href="{:cmf_url('portal/tag/index')}"><span>极速免税店</span></a>
+    <a class="third2" href="{:cmf_url('portal/tag/index')}"><span>母婴特卖</span></a>
+    <a class="third2" href="#" ><span>美妆商城</span></a>
+    <a class="third2" href="{:cmf_url('portal/tag/index')}"><span>国际轻奢</span></a>
+    <a class="third2" href="{:cmf_url('portal/tag/index')}" ><span>服装运动</span></a>
+    <a class="third2" href="{:cmf_url('portal/tag/index')}"><span>鞋包配饰</span></a>
+    <img id="third-img" src="../../../static/images/pic/third.jpg">
+</div>
+
+<include file="public@scripts"/>
+<hook name="before_body_end"/>
+<style>
+    body{
+        margin: 0px;
+    }
+    #first{
+        height: 30px;
+        background-color: rgb(242, 242, 242);
+        border-bottom:1px solid rgb(229, 229, 229);
+    }
+    a{
+        color: rgb(108, 108, 108);
+        font-size: 12px;
+        font-family: YouYuan;
+        text-decoration: none;
+        position: relative;
+        top: 4px;
+    }
+    a:hover{
+        color:rgb(230, 16, 86);
+    }
+    #welcome-slogen{
+        margin-left: 114px;
+    }
+    #login{
+        margin-left: 16px;
+    }
+    #register{
+        margin-left: 16px;
+    }
+    #promise{
+        margin-left: 520px;
+    }
+    #order-search{
+        margin-left: 16px;
+    }
+    #brand-collection{
+        margin-left: 16px;
+    }
+    #my-jumei{
+        margin-left: 16px;
+    }
+    #phone-jumei{
+        margin-left: 16px;
+    }
+    #more{
+        margin-left: 16px;
+    }
+
+
+    #second{
+        height: 110px;
+    }
+    #logo{
+        margin-left: 120px;
+        margin-top: 32px;
+    }
+    input{
+        width: 434px;
+        height: 32px;
+        border: 3px solid rgb(237, 20, 91);
+        position: relative;
+        top: -24px;
+        left: 120px;
+    }
+    #search{
+        width: 100px;
+        height: 34px;
+        background-color: rgb(237, 20, 91);
+        border: 3px solid rgb(237, 20, 91);
+        position: relative;
+        top: -64px;
+        left: 840px;
+    }
+    #sub-search{
+        margin-top: 13px;
+        margin-left: 32px;
+        font-size: 18px;
+        color: white;
+    }
+    #good-text{
+        display: none;
+        width: 390px;
+        height: 46px;
+        background-color: rgb(242, 242, 242);
+        border:1px solid rgb(229, 229, 229);
+        opacity: 0.5;
+        border-radius: 6px;
+        color: rgb(102, 102, 102);
+        font-size: 11px;
+        text-align: center;
+        position: relative;
+        top: -140px;
+        left: 950px;
+    }
+    #good1{
+        width: 390px;
+        height: 46px;
+        background-color: rgb(242, 242, 242);
+        border:1px solid rgb(229, 229, 229);
+        opacity: 0.5;
+        border-radius: 6px;
+        color: rgb(102, 102, 102);
+        font-size: 11px;
+        text-align: center;
+        position: relative;
+        top: -90px;
+        left: 950px;
+    }
+    a:hover div{
+        color: rgb(241, 15, 89);
+    }
+    a:hover div{
+        color: rgb(241, 15, 89);
+    }
+    .common{
+        position: relative;
+        top: -60px;
+        left: 400px;
+    }
+    .gap{
+        position: relative;
+        top: -60px;
+        left: 400px;
+    }
+
+    #third{
+        height: 38px;
+        background:-webkit-linear-gradient(top,rgb(38,38,38),rgb(19,19,19),rgb(6,6,6));
+    }
+    .common1{
+        display: inline-block;
+        width: 100px;
+        height: 38px;
+        background-color: rgb(237, 20, 91);
+        position: relative;
+        top: -18px;
+        left: 120px;
+    }
+    #third-text{
+        font-family: YouYuan;
+        size: 18px;
+        color: white;
+        margin-left: 32px;
+        position: relative;
+        top: 10px;
+    }
+    .third2{
+        margin-left: 60px;
+        font-family: YouYuan;
+        color: white;
+        position: relative;
+        top:-10px;
+        left: 120px;
+    }
+    #third-img{
+        position: relative;
+        top: 0px;
+        left: 300px;
+    }
+
+
+    #fouth-img{
+        width: 100%;
+        height: 350px;
+        position: relative;
+        top: -4px;
+    }
+
+
+    #fifth{
+        height: 1000px;
+    }
+    #fifth-title{
+        width: 244px;
+        height: 44px;
+        background-color: rgb(102, 102, 102);
+        border-radius: 2px;
+        font-size: 20px;
+        color: whitesmoke;
+        text-align: center;
+        line-height: 44px;
+        position: relative;
+        top:10px;
+        left: 42%;
+    }
+    .common2{
+        width: 538px;
+        height: 214px;
+        border-top: 2px solid black;
+    }
+    #fifth1{
+        margin-left: 150px;
+        margin-top: 20px;
+    }
+    #fifth2{
+        margin-left: 700px;
+        margin-top: -216px;
+    }
+    #fifth3{
+        margin-left: 150px;
+        margin-top: 10px;
+    }
+    #fifth4{
+        margin-left: 700px;
+        position: relative;
+        top: -216px;
+    }
+    #fifth5{
+        margin-left: 150px;
+        position: relative;
+        top: -204px;
+    }
+    #fifth6{
+        margin-left: 700px;
+        position: relative;
+        top: -420px;
+    }
+    #fifth7{
+        margin-left: 150px;
+        position: relative;
+        top:-410px;
+    }
+    #fifth8{
+        margin-left: 700px;
+        position: relative;
+        top: -626px;
+    }
+    .fifth-img{
+        width: 100%;
+        margin-top: -3px;
+    }
+    .fifth-img1{
+        width: 100%;
+    }
+</style>
+</body>
+</html>
