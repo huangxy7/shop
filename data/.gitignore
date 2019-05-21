@@ -1,4 +1,4 @@
 *
 !.gitignore
 !install.lock
-!config
+!config/
