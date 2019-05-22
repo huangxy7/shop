@@ -24,7 +24,7 @@ class ListController extends HomeBaseController
 
         // 商品信息, 分页
         $list = Db::name('product')
-            ->field('id, name, price, sales')
+            ->field('id, name, price, sales,image')
             ->where('category_id', $id)
             // ->select();
             ->paginate(5); // 分页

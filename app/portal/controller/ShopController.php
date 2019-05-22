@@ -12,10 +12,31 @@ class ShopController extends HomeBaseController
     public function index()
     {
         $user_id = cmf_get_current_user_id();
+
         $list = Db::name('address')->where('user_id', $user_id)->select();
-        
+        $id = $this->request->param('id', 0, 'intval'); // 商品id
+
+        $goods = Db::name('product')->where('id', $id)->find();
+        $this->assign('goods', $goods);
         $this->assign('page', $list);
+        if(!empty($goods)){
+            echo session('cart');
+            $a = array(session('cart'));
+            foreach ($a as $key){
+                if($key==$goods['id']){
+                    echo '不存';
+                    return $this->fetch("/shop");
+                }else{
+                }
+            }
+            $b = session('cart');
+            $b = $b.",".$goods['id'];
+           session('cart',$b);
+          //  echo session('cart');
+        }
+       // echo session('cart');
         return $this->fetch("/shop");
+
     }
 
     /**
@@ -29,7 +50,7 @@ class ShopController extends HomeBaseController
         $data['user_id'] = $user_id;
 
         $result = Db::name('address')->insert($data);
-        
+
         $this->success('添加成功!');
     }
 
@@ -43,7 +64,7 @@ class ShopController extends HomeBaseController
         $user_id = cmf_get_current_user_id();
 
         $result = Db::name('address')->where('id', $id)->where('user_id', $user_id)->delete();
-        
+
         $this->success('删除成功!');
     }
 
