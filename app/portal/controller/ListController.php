@@ -11,29 +11,27 @@
 namespace app\portal\controller;
 
 use cmf\controller\HomeBaseController;
-use app\portal\model\PortalCategoryModel;
+use think\Db;
 
 class ListController extends HomeBaseController
 {
     /***
-     * 文章列表
-     * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
+     * 商品列表
      */
     public function index()
     {
-        $id                  = $this->request->param('id', 0, 'intval');
-        $portalCategoryModel = new PortalCategoryModel();
+        $id = $this->request->param('id', 0, 'intval'); // 分类id, 1保湿, 2blabla
 
-        $category = $portalCategoryModel->where('id', $id)->where('status', 1)->find();
+        // 商品信息, 分页
+        $list = Db::name('product')
+            ->field('id, name, price, sales')
+            ->where('category_id', $id)
+            // ->select();
+            ->paginate(5); // 分页
        
-        $this->assign('category', $category);
+        $this->assign('list', $list);
 
-        $listTpl = empty($category['list_tpl']) ? 'list' : $category['list_tpl'];
-
-        return $this->fetch('/' . $listTpl);
+        return $this->fetch('/' . $list);
     }
 
 }
