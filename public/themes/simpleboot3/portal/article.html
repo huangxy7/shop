@@ -240,18 +240,16 @@
 <include file="public@nav"/>
 <div id="first"><!--最上面的登陆欢迎栏-->
     <a id="welcome-slogen" href="#">欢迎来到聚美!</a>
-    <a id="login" href="注册页.html">请登录</a>
-    <a id="register" href="注册页.html">快速注册</a>
     <a id="promise" href="正品保证.html">正品保证</a>
-    <a id="order-search" href="#">订单查询</a>
-    <a id="brand-collection" href="收藏.html">收藏的品牌</a>
+    <a id="order-search" href="订单查询.html">订单查询</a>
+    <a id="brand-collection" href="{:cmf_url('portal/prefer/index')}">收藏的品牌</a>
     <a id="my-jumei" href="#">我的聚美</a>
-    <a id="phone-jumei" href="购物车.html">购物车</a>
-    <a id="more" href="敬请期待.html">更多</a>
+    <a id="phone-jumei" href="{:cmf_url('portal/shop/index')}">购物车</a>
+    <a id="more" href="{:cmf_url('portal/tag/index')}">更多</a>
 </div>
 
 <div id="logo"><!---logo-->
-    <a href="毕业设计主页.html">
+    <a >
         <img id="logo1" src="__STATIC__/images/pic/logo.jpg">
     </a>
 </div>
@@ -334,19 +332,7 @@
 </div>
 
 
-<a>{$goods['id']}</a>
-<a>{$goods['category_id']}</a>
-<a>{$goods['name']}</a>
-<a>{$goods['price']}</a>
-<a>{$goods['sales']}</a>
-<a>{$goods['image']}</a>
-<a>{$goods['description']}</a>
-<a>{$goods['brand']}</a>
-<a>{$goods['model']}</a>
-<a>{$goods['category_name']}</a>
-<a>{$goods['efficacy']}</a>
-<a>{$goods['size']}</a>
-<a>{$goods['ps']}</a>
+
 <include file="public@scripts"/>
 <hook name="before_body_end"/>
 </body>
