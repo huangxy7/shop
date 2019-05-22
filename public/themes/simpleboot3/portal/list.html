@@ -17,7 +17,7 @@
     <a id="order-search" href="#">订单查询</a>
     <a id="brand-collection" href="收藏.html">收藏的品牌</a>
     <a id="my-jumei" href="#">我的聚美</a>
-    <a id="phone-jumei" href="购物车.html">购物车</a>
+    <a id="phone-jumei" href="{:cmf_url('portal/shop/index')}">购物车</a>
     <a id="more" href="{:cmf_url('portal/tag/index')}">更多</a>
 </div>
 
@@ -66,7 +66,7 @@
         <span class="fouth-subtext">月销{$vo.sales}</span>
         <span class="price">¥ {$vo.price} </span>
         <a   class="fouth-text"  href="{:cmf_url('portal/shop/index')}?id={$vo['id']}">加购物车</a>
-        <a  class="fouth-text" >收藏</a>
+        <a  class="fouth-text"  href="{:cmf_url('portal/prefer/add')}?id={$vo['id']}">收藏</a>
     </div>
 
     </foreach>
@@ -82,17 +82,7 @@
     </div>
 </div>
 
-<a>测试数据：{$lists}</a>
-    <foreach name="list" item="vo">
-        <div>{$vo.id}</div>
-        <div><img src="__STATIC__/images/pic/a1.png"></div>
 
-        <div>{$vo.name}</div>
-        <div>{$vo.price}</div>
-        <div>{$vo.sales}</div>
-    </foreach>
-
-    <div class="pagination">{$list->render()}</div>
 
 <include file="public@scripts"/>
 <hook name="before_body_end"/>

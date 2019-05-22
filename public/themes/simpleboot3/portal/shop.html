@@ -59,9 +59,7 @@
     <img id="third-img" src="../../../static/images/pic/third.jpg">
 </div>
 
-<?php
- echo session($goods['id'],$goods['id'])
-?>
+
 
 <table>
     <thead>
@@ -76,33 +74,17 @@
     </tr>
     </thead>
     <tbody>
+    <foreach name="list" item="vo">
     <tr class="trclass">
-        <td class="tdone xuhao">1</td>
+        <td class="tdone xuhao" id="{$vo.id}">{$vo.id}</td>
         <td class="tdtwo "><img src="__STATIC__/images/pic/a8.jpg"></td>
-        <td class="tdtwo ">烤煎饼</td>
+        <td class="tdtwo ">{$vo.name}</td>
         <td class="tdthree"><span class="jiajie"><input type="button" value="+"><span class="num">0</span><input type="button" value="-"></span></td>
-        <td class="tdfour"><span>单价：</span><span class="unit">2</span></td>
+        <td class="tdfour"><span>单价：</span><span class="unit">{$vo.price}</span></td>
         <td class="tdfive"><span>小计：</span><span class="subtal">0</span></td>
-        <td class="tdsix"><button class="del">删除</button></td>
+        <td class="tdsix"><button class="del" ><a onclick="djies({$vo['id']})" style="font-size: 20px">结算</button></a></td>
     </tr>
-    <tr class="trclass">
-        <td class="tdone xuhao">2</td>
-        <td class="tdtwo">珍珠奶茶</td>
-        <td class="tdthree"><span class="jiajie"><input type="button" value="+"><span class="num">0</span><input type="button" value="-"></span></td>
-        <td class="tdfour"><span>单价：</span><span class="unit">3.5</span></td>
-        <td class="tdfive"><span>小计：</span><span class="subtal">0</span></td>
-        <td class="tdsix"><button class="del">删除</button></td>
-    </tr>
-
-
-    <tr class="trclass">
-        <td class="tdone xuhao">3</td>
-        <td class="tdtwo">花生米</td>
-        <td class="tdthree"><span class="jiajie"><input type="button" value="+"><span class="num">0</span><input type="button" value="-"></span></td>
-        <td class="tdfour"><span>单价：</span><span class="unit">3</span></td>
-        <td class="tdfive"><span>小计：</span><span class="subtal">0</span></td>
-        <td class="tdsix"><button class="del">删除</button></td>
-    </tr>
+    </foreach>
     <tr><td   colspan="6"; class="talast"><span>商品一共 <span class="goods_num">0</span> 件; 共计花费 <span class="pricetal" id="jie">0</span> 元; 其中最贵的商品单价是 <span class="pricest">0</span> 元</span><button onclick="jiesuan()" style="float: right">结算</button></button></td></tr>
     </tbody>
 </table>
@@ -313,7 +295,9 @@
     }
 </style>
 <script>
-
+function djies(id) {
+    console.log(id)
+}
 
 
     function jiesuan(){

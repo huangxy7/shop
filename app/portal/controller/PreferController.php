@@ -13,7 +13,7 @@ class PreferController extends HomeBaseController
     {
         $user_id = cmf_get_current_user_id();
         $list = Db::name('prefer')->where('user_id', $user_id)->select();
-        
+
         $this->assign('page', $list);
         return $this->fetch("/prefer");
     }
@@ -28,11 +28,11 @@ class PreferController extends HomeBaseController
         $user_id = cmf_get_current_user_id();
         $data = [
             'user_id'    => $user_id,
-            'product_id' => $id,
+            'pro_id' => $id,
         ];
 
         $result = Db::name('prefer')->insert($data);
-        
+
         $this->success('添加成功!');
     }
 
@@ -46,7 +46,7 @@ class PreferController extends HomeBaseController
         $user_id = cmf_get_current_user_id();
 
         $result = Db::name('prefer')->where('id', $id)->where('user_id', $user_id)->delete();
-        
+
         $this->success('删除成功!');
     }
 

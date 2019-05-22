@@ -25,6 +25,17 @@ class ShopController extends HomeBaseController
             foreach ($a as $key){
                 if($key==$goods['id']){
                     echo '不存';
+                    $id = session('cart');
+                    $id = explode(',', $id);
+                    // $id = json_decode($id);
+
+                    // 商品信息
+                    $lista = Db::name('product')
+                        ->field('id, name, price, sales')
+                        ->where('id', 'in', $id)
+                        ->select();
+                    // echo session('cart');
+                    $this->assign('list', $lista);
                     return $this->fetch("/shop");
                 }else{
                 }
@@ -34,7 +45,18 @@ class ShopController extends HomeBaseController
            session('cart',$b);
           //  echo session('cart');
         }
+        //查看所有购物车
+        $id = session('cart');
+        $id = explode(',', $id);
+        // $id = json_decode($id);
+
+        // 商品信息
+        $lista = Db::name('product')
+            ->field('id, name, price, sales')
+            ->where('id', 'in', $id)
+            ->select();
        // echo session('cart');
+        $this->assign('list', $lista);
         return $this->fetch("/shop");
 
     }

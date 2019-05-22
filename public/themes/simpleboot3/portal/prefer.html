@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>收藏</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+    <link href="__TMPL__/public/assets/css/slippry/slippry.css" rel="stylesheet">
+    <style>
+        .caption-wraper {
+            position: absolute;
+            left: 50%;
+            bottom: 2em;
+        }
+
+        .caption-wraper .caption {
+            position: relative;
+            left: -50%;
+            background-color: rgba(0, 0, 0, 0.54);
+            padding: 0.4em 1em;
+            color: #fff;
+            -webkit-border-radius: 1.2em;
+            -moz-border-radius: 1.2em;
+            -ms-border-radius: 1.2em;
+            -o-border-radius: 1.2em;
+            border-radius: 1.2em;
+        }
+
+        .tc-gridbox {
+            margin: 0;
+        }
+
+        @media (max-width: 767px) {
+            .caption-wraper {
+                left: 0;
+                bottom: 0.4em;
+            }
+
+            .caption-wraper .caption {
+                left: 0;
+                padding: 0.2em 0.4em;
+                font-size: 0.92em;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                -ms-border-radius: 0;
+                -o-border-radius: 0;
+                border-radius: 0;
+            }
+        }
+
+    </style>
+    <hook name="before_head_end"/>
+</head>
+<body class="body-white">
+<include file="public@nav"/>
+<style>
+    body{
+        margin: 0px;
+        height: 800px;
+    }
+    #first{
+        height: 30px;
+        background-color: rgb(242, 242, 242);
+        border-bottom:1px solid rgb(229, 229, 229);
+    }
+    a{
+        color: rgb(108, 108, 108);
+        font-size: 12px;
+        font-family: YouYuan;
+        text-decoration: none;
+        position: relative;
+        top: 4px;
+    }
+    a:hover{
+        color:rgb(230, 16, 86);
+    }
+    #welcome-slogen{
+        margin-left: 114px;
+    }
+    #login{
+        margin-left: 16px;
+    }
+    #register{
+        margin-left: 16px;
+    }
+    #promise{
+        margin-left: 520px;
+    }
+    #order-search{
+        margin-left: 16px;
+    }
+    #brand-collection{
+        margin-left: 16px;
+    }
+    #my-jumei{
+        margin-left: 16px;
+    }
+    #phone-jumei{
+        margin-left: 16px;
+    }
+    #more{
+        margin-left: 16px;
+    }
+
+    #second{
+        height: 110px;
+    }
+    #logo{
+        margin-left: 120px;
+        margin-top: 32px;
+    }
+    input{
+        width: 434px;
+        height: 32px;
+        border: 3px solid rgb(237, 20, 91);
+        position: relative;
+        top: -24px;
+        left: 120px;
+    }
+    #search{
+        width: 100px;
+        height: 34px;
+        background-color: rgb(237, 20, 91);
+        border: 3px solid rgb(237, 20, 91);
+        position: relative;
+        top: -64px;
+        left: 840px;
+    }
+    #sub-search{
+        margin-top: 13px;
+        margin-left: 32px;
+        font-size: 18px;
+        color: white;
+    }
+    #shopping-car-text{
+        width: 140px;
+        height: 32px;
+        background-color: rgb(242, 242, 242);
+        border:2px solid rgb(229, 229, 229);
+        border-radius: 6px;
+        color: rgb(102, 102, 102);
+        font-size: 11px;
+        text-align: center;
+        line-height: 24px;
+        position: relative;
+        top: -100px;
+        left: 1080px;
+    }
+    a:hover div{
+        color: rgb(241, 15, 89);
+    }
+    a:hover div{
+        color: rgb(241, 15, 89);
+    }
+    .common{
+        position: relative;
+        top: -60px;
+        left: 400px;
+    }
+    .gap{
+        position: relative;
+        top: -60px;
+        left: 400px;
+    }
+
+    #third{
+        height: 38px;
+        background:-webkit-linear-gradient(top,rgb(38,38,38),rgb(19,19,19),rgb(6,6,6));
+    }
+    .common1{
+        position: relative;
+        top: -18px;
+        left: 120px;
+    }
+    #third-text{
+        font-family: YouYuan;
+        size: 18px;
+        color: white;
+        margin-left: 32px;
+        position: relative;
+        top: 10px;
+    }
+    .third2{
+        margin-left: 60px;
+        font-family: YouYuan;
+        color: white;
+        position: relative;
+        top:-10px;
+        left: 120px;
+    }
+    #third-img{
+        position: relative;
+        top: 0px;
+        left: 340px;
+    }
+
+    .shouc{
+        height: 60px;
+        border: 1px solid rgb(248, 41,109);
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-bottom: 20px;
+    }
+    .shouc-text{
+        font-size: 24px;
+        font-weight: 400;
+        margin-right: 50px;
+        margin-left: 60px;
+        position: relative;
+        top: -20px;
+    }
+    .shouc-text1{
+        font-size: 18px;
+        font-weight: 400px;
+        margin-left: 120px;
+        position: relative;
+        top: -20px;
+    }
+    .shouc-text2{
+        font-size: 18px;
+        font-weight: 400px;
+        margin-right: 8px;
+        position: relative;
+        top: -20px;
+    }
+    .button{
+        margin-left: 0px;
+        margin-top: 40px;
+        width: 100px;
+        height: 30px;
+        color: white;
+        background-color: rgb(237, 20, 91);
+        border: none;
+    }
+    .button1{
+        margin-left: 200px;
+        margin-top: 0px;
+        width: 100px;
+        height: 30px;
+        color: white;
+        background-color: rgb(237, 20, 91);
+        border: none;
+    }
+    #shoucang{
+        margin-top: 60px;
+    }
+    #shoucang1{
+        margin-top: 60px;
+    }
+    #shoucang2{
+        margin-top: 60px;
+    }
+    #shoucang3{
+        margin-top: 60px;
+    }
+    #shoucang4{
+        margin-top: 60px;
+    }
+    #shoucang5{
+        margin-top: 60px;
+    }
+
+    #go{
+        font-size: 24px;
+        font-weight: 500;
+        margin-left: 1100px;
+    }
+</style>
+<div id="first"><!--最上面的登陆欢迎栏-->
+    <a id="welcome-slogen" href="#">欢迎来到聚美!</a>
+    <a id="login" href="注册页.html">请登录</a>
+    <a id="register" href="注册页.html">快速注册</a>
+    <a id="promise" href="正品保证.html">正品保证</a>
+    <a id="order-search" href="#">订单查询</a>
+    <a id="brand-collection" href="收藏.html">收藏的品牌</a>
+    <a id="my-jumei" href="#">我的聚美</a>
+    <a id="phone-jumei" href="购物车.html">购物车</a>
+    <a id="more" href="敬请期待.html">更多</a>
+</div>
+
+<div id="second"><!--聚美logo及搜索-->
+    <a href="毕业设计主页.html"><img id="logo" src="__STATIC__/images/pic/logo.jpg"></a>
+    <input id="mainsearch" type="text" name="search">
+    <div id="search"><a id="sub-search" href="#">搜索</a></div>
+    <a id="one" class="common" href="保湿加购物车.html"><span>保湿</span></a>
+    <span id="gap1" class="gap">|</span>
+    <a id="two" class="common" href="面膜.html"><span>面膜</span></a>
+    <span id="gap2" class="gap">|</span>
+    <a id="three" class="common" href="洗面奶.html"><span>洗面奶</span></a>
+    <span id="gap3" class="gap">|</span>
+    <a id="four" class="common" href="补水.html"><span>补水</span></a>
+    <span id="gap4" class="gap">|</span>
+    <a id="five" class="common" href="香水.html"><span>香水</span></a>
+    <span id="gap5" class="gap">|</span>
+    <a id="six" class="common" href="眼霜.html"><span>眼霜</span></a>
+    <span id="gap6" class="gap">|</span>
+    <a id="seven" class="common" href="口红.html"><span>口红</span></a>
+    <span id="gap7" class="gap">|</span>
+    <a id="eight" class="common" href="护肤套装.html"><span>护肤套装</span></a>
+    <span id="gap8" class="gap">|</span>
+    <a id="nine" class="common" href="BB霜.html"><span>BB霜</span></a>
+</div>
+
+<div id="third"><!--首页等标签栏-->
+    <span id="third1" href="毕业设计主页.html" class="common1"><span id="third-text">首页</span></span>
+    <a class="third2" href="敬请期待.html"><span>极速免税店</span></a>
+    <a class="third2" href="敬请期待.html" ><span>母婴特卖</span></a>
+    <a class="third2" href="#" ><span>美妆商城</span></a>
+    <a class="third2" href="敬请期待.html" ><span>国际轻奢</span></a>
+    <a class="third2" href="敬请期待.html" ><span>服装运动</span></a>
+    <a class="third2" href="敬请期待.html" ><span>鞋包配饰</span></a>
+    <img id="third-img" src="__STATIC__/images/pic/third.jpg">
+</div>
+
+<a>{$page}</a>
+<div class="shouc" id="shoucang">
+    <span class="shouc-text" id="shoucang-text"></span>
+    <span class="shouc-text1" id="shoucang-subtext"></span>
+    <span class="shouc-text2" id="shoucang-sub"></span>
+    <input type="button" value="加购物车" class="button1" id="but">
+    <input type="button" value="删除" class="button" id="butt">
+</div>
+<div class="shouc" id="shoucang1">
+    <span class="shouc-text" id="shoucang-text1"></span>
+    <span class="shouc-text1" id="shoucang-subtext1"></span>
+    <span class="shouc-text2" id="shoucang-sub1"></span>
+    <input type="button" value="加购物车" class="button1" id="but1">
+    <input type="button" value="删除" class="button" id="butt1">
+</div>
+<div class="shouc" id="shoucang2">
+    <span class="shouc-text" id="shoucang-text2"></span>
+    <span class="shouc-text1" id="shoucang-subtext2"></span>
+    <span class="shouc-text2" id="shoucang-sub2"></span>
+    <input type="button" value="加购物车" class="button1" id="but2">
+    <input type="button" value="删除" class="button" id="butt2">
+</div>
+
+<a id="go" href="购物车.html">去购物车结算👉</a>
+
+
+</body>
+</html>
