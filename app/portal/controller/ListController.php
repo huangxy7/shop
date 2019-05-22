@@ -30,7 +30,8 @@ class ListController extends HomeBaseController
             ->paginate(5); // 分页
 
         $this->assign('list', $list);
-
+        $lists = '666';
+        $this->assign('lists', $lists);
         return $this->fetch('/list');
     }
 
