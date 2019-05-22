@@ -51,24 +51,31 @@ class OrderController extends HomeBaseController
      */
     public function add()
     {
-        $goods = $this->request->param('goods', []); // 商品列表
+        $goods = $this->request->param('goods', 0, 'intval'); // 商品列表
         if (empty($goods)) {
             $this->error('请添加商品');
         }
 
-        $data = $this->request->param();
-        $data['goods'] = json_decode($data['goods'], true);
+        $addr_id = $this->request->param('addr_id', 0, 'intval');
+        $address = Db::name('address')->where('id', $addr_id)->find();
+        $data = [
+            'phone' => $address['phone'],
+            'username' => $address['username'],
+            'address' => $address['details'],
+        ];
+        // $data['goods'] = json_decode($data['goods'], true);
 
         $user_id = cmf_get_current_user_id();
         $order_num = time() . $user_id . rand(100,999); // 订单号
         $order_num = substr($order_num, 0, 15);
 
         // 计算订单总价
-        $total_price = 0;
-        foreach ($data['goods'] as $key => $value) {
-            $price = Db::name('product')->where('id', $key)->value('price');
-            $total_price = $total_price + $price * $value;
-        }
+        // $total_price = 0;
+        // foreach ($data['goods'] as $key => $value) {
+        //     $price = Db::name('product')->where('id', $key)->value('price');
+        //     $total_price = $total_price + $price * $value;
+        // }
+        $total_price = Db::name('product')->where('id', $goods)->value('price');
         
         $data['user_id'] = $user_id;
         $data['ordertime'] = time();
@@ -79,15 +86,20 @@ class OrderController extends HomeBaseController
         $order_id = Db::name('order')->insertGetId($data);
 
         $order_data = [];
-        foreach ($data['goods'] as $key => $value) {
-            $d = [
-                'order_id' => $order_id,
-                'product_id' => $key,
-                'amount' => $value,
-            ];
-            $order_data[] = $d;
-        }
-        Db::name('order_data')->insertAll($order_data);
+        // foreach ($goods as $key => $value) {
+        //     $d = [
+        //         'order_id' => $order_id,
+        //         'product_id' => $key,
+        //         'amount' => $value,
+        //     ];
+        //     $order_data[] = $d;
+        // }
+        $order_data = [
+            'order_id' => $order_id,
+            'product_id' => $goods,
+            'amount' => 1,
+        ];
+        Db::name('order_data')->insert($order_data);
         
         $this->success('下单成功!');
     }
