@@ -12,7 +12,12 @@ class PreferController extends HomeBaseController
     public function index()
     {
         $user_id = cmf_get_current_user_id();
-        $list = Db::name('prefer')->where('user_id', $user_id)->select();
+        $list = Db::name('prefer')
+            ->field('p.id, name, price, image')
+            ->alias('pf')
+            ->join('product p', 'p.id=pf.pro_id')
+            ->where('user_id', $user_id)
+            ->select();
 
         $this->assign('page', $list);
         return $this->fetch("/prefer");
