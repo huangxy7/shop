@@ -312,29 +312,18 @@
 </div>
 
 <a>{$page}</a>
+<foreach name="page" item="vo">
 <div class="shouc" id="shoucang">
-    <span class="shouc-text" id="shoucang-text"></span>
-    <span class="shouc-text1" id="shoucang-subtext"></span>
-    <span class="shouc-text2" id="shoucang-sub"></span>
-    <input type="button" value="加购物车" class="button1" id="but">
-    <input type="button" value="删除" class="button" id="butt">
+    <span class="shouc-text" id="shoucang-text"><img src="{:cmf_get_image_url($vo.image)}"></span>
+    <span class="shouc-text1" id="shoucang-subtext">{$vo.name}</span>
+    <span class="shouc-text2" id="shoucang-sub">￥{$vo.price}</span>
+    <a href="{:cmf_url('portal/shop/index')}?id={$vo['id']}"  class="button1" >加购物车</a>
+    <a  class="button1" href="{:cmf_url('portal/prefer/add')}?id={$vo['id']}">收藏</a>
+    <a class="delete" id="delt"  href="{:cmf_url('portal/prefer/delete')}?id={$vo.id}">删除</a>
 </div>
-<div class="shouc" id="shoucang1">
-    <span class="shouc-text" id="shoucang-text1"></span>
-    <span class="shouc-text1" id="shoucang-subtext1"></span>
-    <span class="shouc-text2" id="shoucang-sub1"></span>
-    <input type="button" value="加购物车" class="button1" id="but1">
-    <input type="button" value="删除" class="button" id="butt1">
-</div>
-<div class="shouc" id="shoucang2">
-    <span class="shouc-text" id="shoucang-text2"></span>
-    <span class="shouc-text1" id="shoucang-subtext2"></span>
-    <span class="shouc-text2" id="shoucang-sub2"></span>
-    <input type="button" value="加购物车" class="button1" id="but2">
-    <input type="button" value="删除" class="button" id="butt2">
-</div>
+</foreach>
 
-<a id="go" href="购物车.html">去购物车结算👉</a>
+<a id="go" href="{:cmf_url('portal/shop/index')}">去购物车结算👉</a>
 
 
 </body>

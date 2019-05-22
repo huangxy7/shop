@@ -12,6 +12,156 @@
     </style>
     <hook name="before_head_end"/>
 </head>
+<style>
+    body{
+        margin: 0px;
+        height: 800px;
+    }
+
+    #first{
+        height: 30px;
+        background-color: rgb(242, 242, 242);
+        border-bottom:1px solid rgb(229, 229, 229);
+    }
+    .addre{
+        width: 500px;
+        height: 50px;
+    }
+    a{
+        color: rgb(108, 108, 108);
+        font-size: 12px;
+        font-family: YouYuan;
+        text-decoration: none;
+        position: relative;
+        top: 4px;
+    }
+    a:hover{
+        color:rgb(230, 16, 86);
+    }
+    #welcome-slogen{
+        margin-left: 114px;
+    }
+    #login{
+        margin-left: 16px;
+    }
+    #register{
+        margin-left: 16px;
+    }
+    #promise{
+        margin-left: 520px;
+    }
+    #order-search{
+        margin-left: 16px;
+    }
+    #brand-collection{
+        margin-left: 16px;
+    }
+    #my-jumei{
+        margin-left: 16px;
+    }
+    #phone-jumei{
+        margin-left: 16px;
+    }
+    #more{
+        margin-left: 16px;
+    }
+
+    #logo{
+        margin-left: 90px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    #new{
+        height: 400px;
+        width: 88%;
+        background-color: rgb(229, 229, 229);
+        border-radius: 24px;
+        margin-left: 6%;
+        font-size: 20px;
+    }
+    #new-name{
+        margin-left: 40px;
+        position: relative;
+        top: 40px;
+    }
+    #new-add{
+        margin-left: 40px;
+        position: relative;
+        top: 100px;
+    }
+    #new-add1{
+        margin-left: 40px;
+        position: relative;
+        top: 130px;
+    }
+    #new-add1-text{
+        height: 80px;
+        width: 600px;
+    }
+    #phone{
+        margin-left: 40px;
+        position: relative;
+        top: 70px;
+    }
+    #submit{
+        color: white;
+        width: 200px;
+        height: 40px;
+        font-size: 24px;
+        background-color: rgb(237, 20, 91);
+        border: none;
+        position: relative;
+        top: 160px;
+        left: 500px;
+    }
+
+    #saved{
+        height: 400px;
+        width: 88%;
+        background-color: rgb(229, 229, 229);
+        border-radius: 24px;
+        margin-left: 6%;
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
+    #saved-title{
+        color: rgb(237, 20, 91);
+        font-size: 40px;
+        text-align: center;
+        position: relative;
+        top: 20px;
+    }
+    .saved-add{
+        line-height: 60px;
+        height: 60px;
+        width: 90%;
+        border: 1px solid black;
+        margin-left: 5%;
+        margin-bottom: 30px;
+        position: relative;
+        top: 40px;
+    }
+    .saved-add-name{
+        margin-left: 40px;
+        margin-right: 100px;
+    }
+    .saved-add-phone{
+        margin-right: 100px;
+    }
+    .saved-add-address{
+        margin-right: 100px;
+    }
+    .delete{
+        width: 100px;
+        height: 30px;
+        border: none;
+        background-color: rgb(237, 20, 91);
+    }
+    #address1{
+        display: none;
+    }
+</style>
 <body>
 <include file="public@nav"/>
 <div id="first"><!--最上面的登陆欢迎栏-->
@@ -79,15 +229,31 @@
         <td class="tdone xuhao" id="{$vo.id}">{$vo.id}</td>
         <td class="tdtwo "><img src="__STATIC__/images/pic/a8.jpg"></td>
         <td class="tdtwo ">{$vo.name}</td>
-        <td class="tdthree"><span class="jiajie"><input type="button" value="+"><span class="num">0</span><input type="button" value="-"></span></td>
+        <td class="tdthree"><span class="jiajie"><input type="button" value="+"><span class="num" name="num" >1</span><input type="button" value="-"></span></td>
         <td class="tdfour"><span>单价：</span><span class="unit">{$vo.price}</span></td>
-        <td class="tdfive"><span>小计：</span><span class="subtal">0</span></td>
-        <td class="tdsix"><button class="del" ><a onclick="djies({$vo['id']})" style="font-size: 20px">结算</button></a></td>
+        <td class="tdfive"><span>小计：</span><span class="subtal">{$vo.price}</span></td>
+            <td class="tdsix"><a href="{:cmf_url('portal/shop/jiesuan')}?id={$vo['id']}">结算</a></td>
     </tr>
     </foreach>
-    <tr><td   colspan="6"; class="talast"><span>商品一共 <span class="goods_num">0</span> 件; 共计花费 <span class="pricetal" id="jie">0</span> 元; 其中最贵的商品单价是 <span class="pricest">0</span> 元</span><button onclick="jiesuan()" style="float: right">结算</button></button></td></tr>
+<!--    <tr><td   colspan="6"; class="talast"><span>商品一共 <span class="goods_num">？</span> 件; 共计花费 <span class="pricetal" id="jie">0</span> 元; 其中最贵的商品单价是 <span class="pricest">0</span> 元</span><button onclick="jiesuan()" style="float: right">结算</button></button></td></tr>-->
     </tbody>
 </table>
+
+
+
+<div id="saved"><!--已保存收货地址-->
+    <div id="saved-title">已保存收货地址</div>
+    <foreach name="adds" item="vo">
+        <div class="saved-add" id="address">
+            <span class="saved-add-name" id="address-name">{$vo.username}</span>
+            <span class="saved-add-phone" id="address-phone">{$vo.phone}</span>
+            <span class="saved-add-address" id="address-add">{$vo.details}</span>
+            <a class="delete" id="delt"  href="{:cmf_url('portal/address/delete')}?id={$vo.id}">删除</a>
+        </div>
+    </foreach>
+</div>
+
+
 <include file="public@scripts"/>
 <hook name="before_body_end"/>
 <style>

@@ -12,6 +12,11 @@ class ShopController extends HomeBaseController
     public function index()
     {
         $user_id = cmf_get_current_user_id();
+        $listgo = Db::name('address')->where('user_id', $user_id)->select();
+
+        $this->assign('adds', $listgo);
+
+        $user_id = cmf_get_current_user_id();
 
         $list = Db::name('address')->where('user_id', $user_id)->select();
         $id = $this->request->param('id', 0, 'intval'); // 商品id
@@ -88,6 +93,12 @@ class ShopController extends HomeBaseController
         $result = Db::name('address')->where('id', $id)->where('user_id', $user_id)->delete();
 
         $this->success('删除成功!');
+    }
+    public function jiesuan()
+    {
+        $id = $this->request->param('id');
+
+        $this->success($id);
     }
 
 }

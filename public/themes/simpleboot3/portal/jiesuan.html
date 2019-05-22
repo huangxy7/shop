@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>结算</title>
+</head>
+<body>
+<tr>
+    <th width="100">地址选择：<span class="form-required">*</span></th>
+    <td>
+        <select id="select-category" class="selectpicker" onclick="doSelect()">
+            <foreach name="category" item="cate">
+                <option value="{$cate.id}">{$cate.category_name}</option>
+            </foreach>
+        </select>
+        <input class="form-control" type="hidden" value="" name="post[category_id]"
+               id="js-categories-id-input"/>
+    </td>
+</tr>
+<script>function doSelect() {
+    var myselect = document.getElementById("select-category");
+    var index = myselect.selectedIndex;
+    var category_id = myselect.options[index].value;
+    var myselect=document.getElementById("js-categories-id-input");
+    myselect.value = category_id;
+}</script>
+</body>
+</html>
