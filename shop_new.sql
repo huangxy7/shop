@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1:3306
--- 生成日期： 2019-05-22 13:56:56
+-- 生成日期： 2019-05-22 14:24:45
 -- 服务器版本： 5.7.24
 -- PHP 版本： 7.2.14
 
@@ -39,6 +39,34 @@ CREATE TABLE IF NOT EXISTS `shop_address` (
   `details` varchar(50) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '详细地址',
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='用户地址表';
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `shop_category`
+--
+
+DROP TABLE IF EXISTS `shop_category`;
+CREATE TABLE IF NOT EXISTS `shop_category` (
+  `id` int(50) NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `category_name` varchar(50) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '分类名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='分类表';
+
+--
+-- 转存表中的数据 `shop_category`
+--
+
+INSERT INTO `shop_category` (`id`, `category_name`) VALUES
+(1, '保湿'),
+(2, '面膜'),
+(3, '洗面奶'),
+(4, '补水'),
+(5, '香水'),
+(6, '眼霜'),
+(7, '口红'),
+(8, '护肤套装'),
+(9, 'BB霜');
 
 -- --------------------------------------------------------
 
