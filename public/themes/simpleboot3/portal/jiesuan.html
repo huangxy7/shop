@@ -5,16 +5,26 @@
     <title>结算</title>
 </head>
 <body>
+
 <tr>
-    <th width="100">地址选择：<span class="form-required">*</span></th>
+    <th width="100">地址选择：</th>
     <td>
+        <form action="{:cmf_url('portal/order/add')}" method="post">
         <select id="select-category" class="selectpicker" onclick="doSelect()">
-            <foreach name="category" item="cate">
-                <option value="{$cate.id}">{$cate.category_name}</option>
+            <option value="0">请选择地址</option>
+            <foreach name="address" item="cate">
+                <option value="{$cate.id}">{$cate.details} {$cate.phone} {$cate.username}</option>
             </foreach>
         </select>
-        <input class="form-control" type="hidden" value="" name="post[category_id]"
+        <input class="form-control" type="hidden" value="" name="addr_id"
                id="js-categories-id-input"/>
+
+            <a>商品：</a>
+            <input value="{$goods['id']}" name="goods">
+            <a>{$goods['name']}</a>
+            <a>￥{$goods['price']}</a>
+            <input type="submit" value="支付">
+        </form>
     </td>
 </tr>
 <script>function doSelect() {
@@ -23,6 +33,7 @@
     var category_id = myselect.options[index].value;
     var myselect=document.getElementById("js-categories-id-input");
     myselect.value = category_id;
+    console.log(category_id+'123')
 }</script>
 </body>
 </html>

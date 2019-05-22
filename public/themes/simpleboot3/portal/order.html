@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>订单</title>
+    <include file="public@head"/>
+    <link href="__TMPL__/public/assets/css/slippry/slippry.css" rel="stylesheet">
+    <style>
+        .caption-wraper {
+            position: absolute;
+            left: 50%;
+            bottom: 2em;
+        }
+
+        .caption-wraper .caption {
+            position: relative;
+            left: -50%;
+            background-color: rgba(0, 0, 0, 0.54);
+            padding: 0.4em 1em;
+            color: #fff;
+            -webkit-border-radius: 1.2em;
+            -moz-border-radius: 1.2em;
+            -ms-border-radius: 1.2em;
+            -o-border-radius: 1.2em;
+            border-radius: 1.2em;
+        }
+
+        .tc-gridbox {
+            margin: 0;
+        }
+
+        @media (max-width: 767px) {
+            .caption-wraper {
+                left: 0;
+                bottom: 0.4em;
+            }
+
+            .caption-wraper .caption {
+                left: 0;
+                padding: 0.2em 0.4em;
+                font-size: 0.92em;
+                -webkit-border-radius: 0;
+                -moz-border-radius: 0;
+                -ms-border-radius: 0;
+                -o-border-radius: 0;
+                border-radius: 0;
+            }
+        }
+
+    </style>
+    <hook name="before_head_end"/>
+</head>
+<style>
+    body{
+        margin: 0px;
+        height: 800px;
+    }
+
+    #first{
+        height: 30px;
+        background-color: rgb(242, 242, 242);
+        border-bottom:1px solid rgb(229, 229, 229);
+    }
+    a{
+        color: rgb(108, 108, 108);
+        font-size: 12px;
+        font-family: YouYuan;
+        text-decoration: none;
+        position: relative;
+        top: 4px;
+    }
+    a:hover{
+        color:rgb(230, 16, 86);
+    }
+    #welcome-slogen{
+        margin-left: 114px;
+    }
+    #login{
+        margin-left: 16px;
+    }
+    #register{
+        margin-left: 16px;
+    }
+    #promise{
+        margin-left: 520px;
+    }
+    #order-search{
+        margin-left: 16px;
+    }
+    #brand-collection{
+        margin-left: 16px;
+    }
+    #my-jumei{
+        margin-left: 16px;
+    }
+    #phone-jumei{
+        margin-left: 16px;
+    }
+    #more{
+        margin-left: 16px;
+    }
+
+    #logo{
+        margin-left: 90px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    #mail{
+        margin-left: 1000px;
+        position: relative;
+        top: -60px;
+    }
+    #mail1{
+        font-size: 16px;
+        line-height: 36px;
+    }
+
+    .good{
+        border: 1px solid rgb(248, 41,109);
+        width: 96%;
+        height: 100px;
+        margin-left: 2%;
+        margin-bottom: 20px;
+        position: relative;
+        top: -20px;
+    }
+    .name{
+        line-height: 100px;
+        margin-left: 40px;
+        margin-right: 140px;
+    }
+    .kuaidi-infor{
+        margin-right: 280px;
+    }
+    .money{
+        color: white;
+        width: 100px;
+        height: 30px;
+        background-color: rgb(237, 20, 91);
+        border: none;
+    }
+    .goods{
+        color: white;
+        width: 100px;
+        height: 30px;
+        background-color: rgb(237, 20, 91);
+        border: none;
+    }
+</style>
+<body class="body-white">
+<include file="public@nav"/>
+<div id="first"><!--最上面的登陆欢迎栏-->
+    <a id="welcome-slogen" href="#">欢迎来到聚美!</a>
+    <a id="promise" href="正品保证.html">正品保证</a>
+    <a id="order-search" href="#">订单查询</a>
+    <a id="brand-collection" href="收藏.html">收藏的品牌</a>
+    <a id="my-jumei" href="#">我的聚美</a>
+    <a id="phone-jumei" href="购物车.html">购物车</a>
+    <a id="more" href="敬请期待.html">更多</a>
+</div>
+
+<div id="logo"><!---logo-->
+    <a href="毕业设计主页.html">
+        <img id="logo1" src="C:\Users\ASUS E403\Desktop\bishe\logo.jpg">
+    </a>
+</div>
+
+<div id="mail">
+    <a id="mail1" href="邮寄地址管理.html">邮寄地址管理</a>
+</div>
+<a>{$page}</a>
+<foreach name="page" item="vo">
+<div class="good">
+    <span class="name" id="name1">订单号：{$vo.order_num}</span>
+    <span class="name" >价格：{$vo.total_price}</span>
+    <span class="kuaidi" id="kuaidi1">物流到达点：{$vo.address}</span>
+    
+    <input class="money" id="money1" type="button" value="退货">
+    <input class="goods" id="goods1" type="button" value="退款">
+</div>
+</foreach>
+
+
+
+</body>
+</html>

@@ -13,9 +13,8 @@ class OrderController extends HomeBaseController
     {
         $user_id = cmf_get_current_user_id();
         $list = Db::name('order')->where('user_id', $user_id)->select();
-        
         $this->assign('page', $list);
-        return $this->fetch("/shop");
+        return $this->fetch("/order");
     }
 
     /**
@@ -58,6 +57,8 @@ class OrderController extends HomeBaseController
 
         $addr_id = $this->request->param('addr_id', 0, 'intval');
         $address = Db::name('address')->where('id', $addr_id)->find();
+        var_dump($address);
+        var_dump($addr_id);
         $data = [
             'phone' => $address['phone'],
             'username' => $address['username'],
@@ -100,7 +101,7 @@ class OrderController extends HomeBaseController
             'amount' => 1,
         ];
         Db::name('order_data')->insert($order_data);
-        
+
         $this->success('下单成功!');
     }
 

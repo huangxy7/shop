@@ -97,13 +97,16 @@ class ShopController extends HomeBaseController
 
     public function jiesuan()
     {
-        $id = $this->request->param('id');
 
         $user_id = cmf_get_current_user_id();
         $address = Db::name('address')->where('user_id', $user_id)->select();
+        $id = $this->request->param('id', 0, 'intval'); // 商品id
 
+        $goods = Db::name('product')->where('id', $id)->find();
+
+        $this->assign('goods', $goods);
         $this->assign('address', $address);
-        $this->fetch('/jiesuan');
+        return $this->fetch('/jiesuan');
     }
 
 }
