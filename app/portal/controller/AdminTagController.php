@@ -1,13 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkCMF [ WE CAN DO IT MORE SIMPLE ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2013-2019 http://www.thinkcmf.com All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author:kane < chengjin005@163.com>
-// +----------------------------------------------------------------------
 namespace app\portal\controller;
 
 use app\portal\model\PortalTagModel;
@@ -21,133 +12,43 @@ use think\Db;
 class AdminTagController extends AdminBaseController
 {
     /**
-     * 文章标签管理
-     * @adminMenu(
-     *     'name'   => '文章标签',
-     *     'parent' => 'portal/AdminIndex/default',
-     *     'display'=> true,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '文章标签',
-     *     'param'  => ''
-     * )
+     * 审核用户退货
      */
     public function index()
     {
-        $content = hook_one('portal_admin_tag_index_view');
+        $content = hook_one('portal_admin_page_index_view');
 
         if (!empty($content)) {
             return $content;
         }
 
-        $portalTagModel = new PortalTagModel();
-        $tags           = $portalTagModel->paginate();
+        $data = Db::name('order')
+            ->field('o.*, u.user_login')
+            ->alias('o')
+            ->join('user u', 'u.id=o.user_id')
+            ->where('status', 2)
+            ->paginate(10);
 
-        $this->assign("arrStatus", $portalTagModel::$STATUS);
-        $this->assign("tags", $tags);
-        $this->assign('page', $tags->render());
+        $this->assign('pages', $data);
+        $this->assign('page', $data->render());
+
         return $this->fetch();
     }
 
     /**
-     * 添加文章标签
-     * @adminMenu(
-     *     'name'   => '添加文章标签',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> true,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加文章标签',
-     *     'param'  => ''
-     * )
+     * 确定退货
      */
     public function add()
     {
-        $portalTagModel = new PortalTagModel();
-        $this->assign("arrStatus", $portalTagModel::$STATUS);
+        $content = hook_one('portal_admin_page_add_view');
+
+        if (!empty($content)) {
+            return $content;
+        }
+
+        $data = $this->request->param('id', 0, 'intval');
+
+        Db::name('order')->where('id', $id)->where('status', 2)->update(['status'=>3]);
         return $this->fetch();
-    }
-
-    /**
-     * 添加文章标签提交
-     * @adminMenu(
-     *     'name'   => '添加文章标签提交',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '添加文章标签提交',
-     *     'param'  => ''
-     * )
-     */
-    public function addPost()
-    {
-
-        $arrData = $this->request->param();
-
-        $portalTagModel = new PortalTagModel();
-        $portalTagModel->isUpdate(false)->allowField(true)->save($arrData);
-
-        $this->success(lang("SAVE_SUCCESS"));
-
-    }
-
-    /**
-     * 更新文章标签状态
-     * @adminMenu(
-     *     'name'   => '更新标签状态',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '更新标签状态',
-     *     'param'  => ''
-     * )
-     */
-    public function upStatus()
-    {
-        $intId     = $this->request->param("id");
-        $intStatus = $this->request->param("status");
-        $intStatus = $intStatus ? 1 : 0;
-        if (empty($intId)) {
-            $this->error(lang("NO_ID"));
-        }
-
-        $portalTagModel = new PortalTagModel();
-        $portalTagModel->isUpdate(true)->save(["status" => $intStatus], ["id" => $intId]);
-
-        $this->success(lang("SAVE_SUCCESS"));
-
-    }
-
-    /**
-     * 删除文章标签
-     * @adminMenu(
-     *     'name'   => '删除文章标签',
-     *     'parent' => 'index',
-     *     'display'=> false,
-     *     'hasView'=> false,
-     *     'order'  => 10000,
-     *     'icon'   => '',
-     *     'remark' => '删除文章标签',
-     *     'param'  => ''
-     * )
-     */
-    public function delete()
-    {
-        $intId = $this->request->param("id", 0, 'intval');
-
-        if (empty($intId)) {
-            $this->error(lang("NO_ID"));
-        }
-        $portalTagModel = new PortalTagModel();
-
-        $portalTagModel->where('id' , $intId)->delete();
-        Db::name('portal_tag_post')->where('tag_id', $intId)->delete();
-        $this->success(lang("DELETE_SUCCESS"));
     }
 }

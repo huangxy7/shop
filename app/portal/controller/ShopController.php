@@ -94,11 +94,16 @@ class ShopController extends HomeBaseController
 
         $this->success('删除成功!');
     }
+
     public function jiesuan()
     {
         $id = $this->request->param('id');
 
-        $this->success($id);
+        $user_id = cmf_get_current_user_id();
+        $address = Db::name('address')->where('user_id', $user_id)->select();
+
+        $this->assign('address', $address);
+        $this->fetch('/jiesuan');
     }
 
 }

@@ -13,9 +13,6 @@ class AdminArticleController extends AdminBaseController
     /**
      * 商品列表
      * @return mixed
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\ModelNotFoundException
-     * @throws \think\exception\DbException
      */
     public function index()
     {
@@ -42,7 +39,6 @@ class AdminArticleController extends AdminBaseController
 
         $categoryTree = Db::name('category')->select();
 
-        $this->assign('keyword', isset($param['keyword']) ? $param['keyword'] : '');
         $this->assign('articles', $data);
         $this->assign('category_tree', $categoryTree);
         $this->assign('page', $data->render());

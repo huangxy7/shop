@@ -73,7 +73,7 @@ class OrderController extends HomeBaseController
         $data['user_id'] = $user_id;
         $data['ordertime'] = time();
         $data['order_num'] = $order_num;
-        $data['status'] = 1; // 等待审核
+        $data['status'] = 0; // 等待审核
         $data['total_price'] = $total_price; // 订单总价
 
         $order_id = Db::name('order')->insertGetId($data);
