@@ -110,12 +110,20 @@
         margin-top: 32px;
     }
     input{
+        width: 100px;
+        height: 32px;
+        border: 3px solid rgb(237, 20, 91);
+        position: relative;
+        top: -80px;
+        left: 400px;
+    }
+    .inputs{
         width: 434px;
         height: 32px;
         border: 3px solid rgb(237, 20, 91);
         position: relative;
-        top: -24px;
-        left: 120px;
+        top: -80px;
+        left: 400px;
     }
     #search{
         width: 100px;
@@ -267,19 +275,21 @@
     }
 </style>
 <div id="first"><!--最上面的登陆欢迎栏-->
-    <a id="welcome-slogen" href="#">欢迎来到聚美!</a>
-    <a id="promise" href="正品保证.html">正品保证</a>
-    <a id="order-search" href="订单查询.html">订单查询</a>
+    <a id="welcome-slogen" >欢迎来到聚美!</a>
+    <a id="promise" >正品保证</a>
+    <a id="order-search" href="{:cmf_url('portal/order/index')}">订单查询</a>
     <a id="brand-collection" href="{:cmf_url('portal/prefer/index')}">收藏的品牌</a>
-    <a id="my-jumei" href="#">我的聚美</a>
+    <a id="my-jumei" href="{:cmf_url('portal/address/index')}">我的地址</a>
     <a id="phone-jumei" href="{:cmf_url('portal/shop/index')}">购物车</a>
     <a id="more" href="{:cmf_url('portal/tag/index')}">更多</a>
 </div>
 
 <div id="second"><!--聚美logo及搜索-->
     <a ><img id="logo" src="__STATIC__/images/pic/logo.jpg"></a>
-    <input id="mainsearch" type="text" name="search">
-    <div id="search"><a id="sub-search" href="#">搜索</a></div>
+    <form action="{:cmf_url('portal/search/index')}" method="post">
+        <input class="inputs"  name="keyword">
+        <input type="submit" value="搜索">
+    </form>
     <a id="good-text" class="good"  href="#"></a>
     <a id="one" class="common" href="{:cmf_url('portal/list/index')}?id=1"><span>保湿</span></a>
     <span id="gap1" class="gap">|</span>
@@ -311,7 +321,7 @@
     <img id="third-img" src="__STATIC__/images/pic/third.jpg">
 </div>
 
-<a>{$page}</a>
+
 <foreach name="page" item="vo">
 <div class="shouc" id="shoucang">
     <span class="shouc-text" id="shoucang-text"><img src="{:cmf_get_image_url($vo.image)}"></span>

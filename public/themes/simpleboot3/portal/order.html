@@ -151,13 +151,13 @@
 <body class="body-white">
 <include file="public@nav"/>
 <div id="first"><!--最上面的登陆欢迎栏-->
-    <a id="welcome-slogen" href="#">欢迎来到聚美!</a>
-    <a id="promise" href="正品保证.html">正品保证</a>
-    <a id="order-search" href="#">订单查询</a>
-    <a id="brand-collection" href="收藏.html">收藏的品牌</a>
-    <a id="my-jumei" href="#">我的聚美</a>
-    <a id="phone-jumei" href="购物车.html">购物车</a>
-    <a id="more" href="敬请期待.html">更多</a>
+    <a id="welcome-slogen" >欢迎来到聚美!</a>
+    <a id="promise" >正品保证</a>
+    <a id="order-search" href="{:cmf_url('portal/order/index')}">订单查询</a>
+    <a id="brand-collection" href="{:cmf_url('portal/prefer/index')}">收藏的品牌</a>
+    <a id="my-jumei" href="{:cmf_url('portal/address/index')}">我的地址</a>
+    <a id="phone-jumei" href="{:cmf_url('portal/shop/index')}">购物车</a>
+    <a id="more" href="{:cmf_url('portal/tag/index')}">更多</a>
 </div>
 
 <div id="logo"><!---logo-->
@@ -169,15 +169,30 @@
 <div id="mail">
     <a id="mail1" href="邮寄地址管理.html">邮寄地址管理</a>
 </div>
-<a>{$page}</a>
+
 <foreach name="page" item="vo">
 <div class="good">
     <span class="name" id="name1">订单号：{$vo.order_num}</span>
+    <span class="name" >{$vo.pro_name}</span>
     <span class="name" >价格：{$vo.total_price}</span>
     <span class="kuaidi" id="kuaidi1">物流到达点：{$vo.address}</span>
-    
-    <input class="money" id="money1" type="button" value="退货">
-    <input class="goods" id="goods1" type="button" value="退款">
+<?php
+if($vo['status']=='0'){
+?>
+    <a  href="{:cmf_url('portal/order/refund')}?id={$vo.id}">退款</a>
+    <?php
+    }if($vo['status']=='2'){
+?>
+    <a href="{:cmf_url('portal/order/undo')}?id={$vo.id}">撤销退款</a>
+<?php
+}else{
+?>
+    <a href="{:cmf_url('portal/order/refund')}?id={$vo.id}">退款</a>
+    <?php
+    }
+    ?>
+
+
 </div>
 </foreach>
 

@@ -14,7 +14,6 @@ class OrderController extends HomeBaseController
         $user_id = cmf_get_current_user_id();
         $list = Db::name('order')->where('user_id', $user_id)->select();
 
-
         foreach ($list as $key => $value) {
             $result = Db::name('order_data')
                 ->alias('d')
@@ -22,7 +21,8 @@ class OrderController extends HomeBaseController
                 ->where('order_id', $value['id'])
                 ->column('p.name');
             $pro_name = implode('、', $result);
-            $list[$key]['pro_name'] = $pro_name;
+            $value['pro_name'] = $pro_name;
+            $list[$key] = $value;
         }
 
 
@@ -70,8 +70,7 @@ class OrderController extends HomeBaseController
 
         $addr_id = $this->request->param('addr_id', 0, 'intval');
         $address = Db::name('address')->where('id', $addr_id)->find();
-        var_dump($address);
-        var_dump($addr_id);
+
         $data = [
             'phone' => $address['phone'],
             'username' => $address['username'],
@@ -133,7 +132,7 @@ class OrderController extends HomeBaseController
             ->update([
                 'status' => 2,
             ]);
-        
+        return $this->fetch('/back');
         $this->success('等待退款!');
     }
 

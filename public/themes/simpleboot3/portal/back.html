@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>退款结果</title>
+</head>
+<style>
+    body{
+        margin: 0px;
+        height: 100%;
+    }
+
+    #first{
+        height: 30px;
+        background-color: rgb(242, 242, 242);
+        border-bottom:1px solid rgb(229, 229, 229);
+    }
+    a{
+        color: rgb(108, 108, 108);
+        font-size: 12px;
+        font-family: YouYuan;
+        text-decoration: none;
+        position: relative;
+        top: 4px;
+    }
+    a:hover{
+        color:rgb(230, 16, 86);
+    }
+    #welcome-slogen{
+        margin-left: 114px;
+    }
+    #login{
+        margin-left: 16px;
+    }
+    #register{
+        margin-left: 16px;
+    }
+    #promise{
+        margin-left: 520px;
+    }
+    #order-search{
+        margin-left: 16px;
+    }
+    #brand-collection{
+        margin-left: 16px;
+    }
+    #my-jumei{
+        margin-left: 16px;
+    }
+    #phone-jumei{
+        margin-left: 16px;
+    }
+    #more{
+        margin-left: 16px;
+    }
+
+    #logo{
+        margin-left: 90px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .text{
+        height: 250px;
+        width: 100%;
+    }
+    .text1{
+        height: 100px;
+        background-color:rgb(230, 16, 86);
+        color: white;
+        font-size: 24px;
+        line-height: 100px;
+        text-align: center;
+    }
+    .text2{
+        height: 60px;
+        line-height: 60px;
+    }
+    #cancel{
+        color: white;
+        width: 100px;
+        background-color: rgb(237, 20, 91);
+        border: none;
+        width: 200px;
+        height: 40px;
+        font-size: 20px;
+        margin-left: 600px;
+    }
+    #change{
+        color: white;
+        width: 100px;
+        background-color: rgb(237, 20, 91);
+        border: none;
+        width: 200px;
+        height: 40px;
+        font-size: 20px;
+        margin-left: 900px;
+        position: relative;
+        top: -40px;
+    }
+
+    #apart{
+        height: 30px;
+        width: 100%;
+        background-color: rgb(229, 229, 229);
+    }
+
+    #information{
+        width: 100%;
+    }
+    #infor-text{
+        font-size: 24px;
+        margin-left: 40px;
+        margin-top: 20px;
+    }
+    #infor-goods{
+        height: 240px;
+        background-color: rgb(229, 229, 229);
+        margin-bottom: 30px;
+    }
+    .photo{
+        width:180px;
+        height: 180px;
+        margin-top: 30px;
+        margin-left: 30px;
+    }
+    .name{
+        font-size: 26px;
+        margin-left: 40px;
+        position: relative;
+        top: 20px;
+    }
+    #reason{
+        font-size: 22px;
+        margin-left: 40px;
+        margin-top: -190px;
+    }
+    #money{
+        font-size: 22px;
+        margin-left: 40px;
+        margin-top: 10px;
+    }
+    #number{
+        font-size: 22px;
+        margin-left: 40px;
+        margin-top: 10px;
+    }
+</style>
+<body>
+<div id="first"><!--最上面的登陆欢迎栏-->
+    <a id="welcome-slogen" >欢迎来到聚美!</a>
+    <a id="promise" >正品保证</a>
+    <a id="order-search" href="{:cmf_url('portal/order/index')}">订单查询</a>
+    <a id="brand-collection" href="{:cmf_url('portal/prefer/index')}">收藏的品牌</a>
+    <a id="my-jumei" href="{:cmf_url('portal/address/index')}">我的地址</a>
+    <a id="phone-jumei" href="{:cmf_url('portal/shop/index')}">购物车</a>
+    <a id="more" href="{:cmf_url('portal/tag/index')}">更多</a>
+</div>
+
+<div id="logo"><!---logo-->
+    <a href="毕业设计主页.html">
+        <img id="logo1" src="C:\Users\ASUS E403\Desktop\bishe\logo.jpg">
+    </a>
+</div>
+
+<div class="text">
+    <div class="text1">请耐心等待商家处理</div>
+    <div class="text2">您已成功发起退款申请，请耐心等待商家处理</div>
+<!--    <input id="cancel" type="button" value="撤销申请">-->
+    <!--<input id="change" type="button" value="修改申请">-->
+</div>
+
+<div id="apart"></div>
+
+
+
+</body>
+</html>

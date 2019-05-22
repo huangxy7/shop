@@ -30,7 +30,7 @@
                     <td>{$vo.user_login}</td>
                     <td>待审核</td>
                     <td>
-                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('AdminPage/add',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('AdminPage/add',array('id'=>$vo['id']))}">通过</a>
                     </td>
                 </tr>
             </foreach>

@@ -19,17 +19,15 @@ class SearchController extends HomeBaseController
         }
         $where = [];
         if ($keyword) {
-            $where[] = ['name', 'like', $keyword];
+            $where[] = ['name', 'like', "%$keyword%"];
         }
-        $list = Db::
 
         // 商品信息, 分页
         $list = Db::name('product')
             ->field('id, name, price, sales')
-            ->where('category_id', $id)
+
             ->where($where)
             ->paginate(5); // 分页
-       
         $this->assign('list', $list);
 
         return $this->fetch('/search');
