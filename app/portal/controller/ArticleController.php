@@ -17,7 +17,7 @@ class ArticleController extends HomeBaseController
 
         $this->assign('goods', $goods);
 
-        return $this->fetch("/$tplName");
+        return $this->fetch("/article");
     }
 
 

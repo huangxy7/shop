@@ -22,7 +22,7 @@ class ListController extends HomeBaseController
        
         $this->assign('list', $list);
 
-        return $this->fetch('/' . $list);
+        return $this->fetch('/list');
     }
 
 }

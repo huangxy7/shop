@@ -15,7 +15,7 @@ class PreferController extends HomeBaseController
         $list = Db::name('prefer')->where('user_id', $user_id)->select();
         
         $this->assign('page', $list);
-        return $this->fetch("/shop");
+        return $this->fetch("/prefer");
     }
 
     /**

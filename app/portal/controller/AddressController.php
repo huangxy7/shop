@@ -15,7 +15,7 @@ class AddressController extends HomeBaseController
         $list = Db::name('address')->where('user_id', $user_id)->select();
         
         $this->assign('page', $list);
-        return $this->fetch("/shop");
+        return $this->fetch("/address");
     }
 
     /**
