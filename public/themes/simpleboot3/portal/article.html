@@ -270,8 +270,12 @@
     <div id="price1" class="price">
         ¥ {$goods['price']}
     </div>
+    <a href="{:cmf_url('portal/shop/index')}?id={$goods['id']}">
     <input class="fouth-buttons" id="a" type="button" value="加购物车">
+    </a>
+    <a href="{:cmf_url('portal/prefer/add')}?id={$goods['id']}">
     <input class="fouth-buttons1" id="b" type="button" value="收藏">
+    </a>
     <div id="apart1">商品信息</div>
     <div id="information">
         <div class="infor-text" id="a">

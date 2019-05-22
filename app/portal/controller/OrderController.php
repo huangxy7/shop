@@ -114,7 +114,7 @@ class OrderController extends HomeBaseController
         ];
         Db::name('order_data')->insert($order_data);
 
-        $this->success('下单成功!');
+        return $this->fetch("/index");
     }
 
     /**
@@ -133,7 +133,7 @@ class OrderController extends HomeBaseController
                 'status' => 2,
             ]);
         return $this->fetch('/back');
-        $this->success('等待退款!');
+
     }
 
     /**

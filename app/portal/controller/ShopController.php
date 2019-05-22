@@ -25,11 +25,10 @@ class ShopController extends HomeBaseController
         $this->assign('goods', $goods);
         $this->assign('page', $list);
         if(!empty($goods)){
-            echo session('cart');
             $a = array(session('cart'));
             foreach ($a as $key){
                 if($key==$goods['id']){
-                    echo '不存';
+
                     $id = session('cart');
                     $id = explode(',', $id);
                     // $id = json_decode($id);
@@ -107,6 +106,11 @@ class ShopController extends HomeBaseController
         $this->assign('goods', $goods);
         $this->assign('address', $address);
         return $this->fetch('/jiesuan');
+    }
+    public function qinkong()
+    {
+        session('cart',null);
+        return $this->fetch('/shop');
     }
 
 }

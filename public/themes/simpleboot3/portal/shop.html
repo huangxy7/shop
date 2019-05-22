@@ -180,23 +180,23 @@
         <input class="inputs"  name="keyword">
         <input type="submit" value="搜索">
     </form>
-    <a id="one" class="common" href="{:cmf_url('portal/list/index')}"><span>保湿</span></a>
+    <a id="one" class="common" href="{:cmf_url('portal/list/index')}?id=1"><span>保湿</span></a>
     <span id="gap1" class="gap">|</span>
-    <a id="two" class="common" href="面膜.html"><span>面膜</span></a>
+    <a id="two" class="common" href="{:cmf_url('portal/list/index')}?id=2"><span>面膜</span></a>
     <span id="gap2" class="gap">|</span>
-    <a id="three" class="common" href="洗面奶.html"><span>洗面奶</span></a>
+    <a id="three" class="common" href="{:cmf_url('portal/list/index')}?id=3"><span>洗面奶</span></a>
     <span id="gap3" class="gap">|</span>
-    <a id="four" class="common" href="补水.html"><span>补水</span></a>
+    <a id="four" class="common" href="{:cmf_url('portal/list/index')}?id=4"><span>补水</span></a>
     <span id="gap4" class="gap">|</span>
-    <a id="five" class="common" href="香水.html"><span>香水</span></a>
+    <a id="five" class="common" href="{:cmf_url('portal/list/index')}?id=5"><span>香水</span></a>
     <span id="gap5" class="gap">|</span>
-    <a id="six" class="common" href="眼霜.html"><span>眼霜</span></a>
+    <a id="six" class="common" href="{:cmf_url('portal/list/index')}?id=6"><span>眼霜</span></a>
     <span id="gap6" class="gap">|</span>
-    <a id="seven" class="common" href="口红.html"><span>口红</span></a>
+    <a id="seven" class="common" href="{:cmf_url('portal/list/index')}?id=7"><span>口红</span></a>
     <span id="gap7" class="gap">|</span>
-    <a id="eight" class="common" href="护肤套装.html"><span>护肤套装</span></a>
+    <a id="eight" class="common" href="{:cmf_url('portal/list/index')}?id=8"><span>护肤套装</span></a>
     <span id="gap8" class="gap">|</span>
-    <a id="nine" class="common" href="BB霜.html"><span>BB霜</span></a>
+    <a id="nine" class="common" href="{:cmf_url('portal/list/index')}?id=9"><span>BB霜</span></a>
 </div>
 
 <div id="third"><!--首页等标签栏-->
@@ -236,7 +236,7 @@
             <td class="tdsix"><a href="{:cmf_url('portal/shop/jiesuan')}?id={$vo['id']}">结算</a></td>
     </tr>
     </foreach>
-<!--    <tr><td   colspan="6"; class="talast"><span>商品一共 <span class="goods_num">？</span> 件; 共计花费 <span class="pricetal" id="jie">0</span> 元; 其中最贵的商品单价是 <span class="pricest">0</span> 元</span><button onclick="jiesuan()" style="float: right">结算</button></button></td></tr>-->
+    <tr><td   colspan="6"; class="talast"><a  href="{:cmf_url('portal/shop/qinkong')}"><h3 align="center">清空购物车</h3></a></td></tr>
     </tbody>
 </table>
 
