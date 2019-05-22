@@ -33,7 +33,7 @@ class OrderController extends HomeBaseController
             ->find();
         
         $this->assign('info', $info);
-        return $this->fetch("/shop");
+        return $this->fetch("/order");
     }
 
     /**
