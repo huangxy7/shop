@@ -16,7 +16,11 @@ class OrderController extends HomeBaseController
 
 
         foreach ($list as $key => $value) {
-            $result = Db::name('order_data')->where('order_id', $value['id'])->column('name');
+            $result = Db::name('order_data')
+                ->alias('d')
+                ->join('product p', 'd.product_id=p.id')
+                ->where('order_id', $value['id'])
+                ->column('p.name');
             $pro_name = implode('、', $result);
             $list[$key]['pro_name'] = $pro_name;
         }
