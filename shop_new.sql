@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1:3306
--- 生成日期： 2019-05-22 12:41:20
+-- 生成日期： 2019-05-22 13:52:25
 -- 服务器版本： 5.7.24
 -- PHP 版本： 7.2.14
 
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `shop_order` (
   `address` varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '收货地址',
   `user_id` int(255) UNSIGNED NOT NULL DEFAULT '0' COMMENT '用户id',
   `status` int(4) UNSIGNED NOT NULL DEFAULT '0' COMMENT '订单状态: 0待审核, 1付款完成, 2等待退货, 3退货完成',
-  `ordetime` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '下单时间',
+  `ordertime` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT '下单时间',
   `phone` int(12) UNSIGNED NOT NULL DEFAULT '0' COMMENT '手机号',
   `username` varchar(50) NOT NULL DEFAULT '' COMMENT '收件人名字',
   PRIMARY KEY (`id`)
