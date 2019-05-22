@@ -48,11 +48,11 @@ class OrderController extends HomeBaseController
         }
 
         $data = $this->request->param();
+        $data['goods'] = json_decode($data['goods'], true);
 
         $user_id = cmf_get_current_user_id();
         $order_num = time() . $user_id . rand(100,999); // 订单号
         $order_num = substr($order_num, 0, 15);
-
         $total_price = Db::name('product')->where('id', 'in', $data[$goods])->sum('price');
         
         $data['user_id'] = $user_id;
