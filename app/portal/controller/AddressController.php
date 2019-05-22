@@ -4,7 +4,7 @@ namespace app\portal\controller;
 use cmf\controller\HomeBaseController;
 use think\Db;
 
-class ShopController extends HomeBaseController
+class AddressController extends HomeBaseController
 {
     /**
      * 用户地址列表
