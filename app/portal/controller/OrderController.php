@@ -19,7 +19,7 @@ class OrderController extends HomeBaseController
     }
 
     /**
-     * 用户订单详情, 貌似不用到这个
+     * 用户订单详情, 貌似用不到这个
      * 传: 订单id
      */
     public function read()
@@ -31,6 +31,14 @@ class OrderController extends HomeBaseController
             ->where('id', $id)
             ->where('user_id', $user_id)
             ->find();
+
+        // 订单的商品信息
+        $info['goods'] = Db::name('order_data')
+            ->field('p.name, p.price, o.amount')
+            ->alias('o')
+            ->join('product p', 'o.product_id = p.id')
+            ->where('order_id', $id)
+            ->select();
         
         $this->assign('info', $info);
         return $this->fetch("/order");
@@ -38,11 +46,12 @@ class OrderController extends HomeBaseController
 
     /**
      * 用户下单
-     * 传: goods商品id列表, address地址, username收件人名字, phone手机号
+     * 传: goods商品列表, address地址, username收件人名字, phone手机号
+     * 商品列表格式: [商品1id=>商品1个数, ...]
      */
     public function add()
     {
-        $goods = $this->request->param('goods', []); // 商品id列表
+        $goods = $this->request->param('goods', []); // 商品列表
         if (empty($goods)) {
             $this->error('请添加商品');
         }
@@ -53,7 +62,13 @@ class OrderController extends HomeBaseController
         $user_id = cmf_get_current_user_id();
         $order_num = time() . $user_id . rand(100,999); // 订单号
         $order_num = substr($order_num, 0, 15);
-        $total_price = Db::name('product')->where('id', 'in', $data[$goods])->sum('price');
+
+        // 计算订单总价
+        $total_price = 0;
+        foreach ($data['goods'] as $key => $value) {
+            $price = Db::name('product')->where('id', $key)->value('price');
+            $total_price = $total_price + $price * $value;
+        }
         
         $data['user_id'] = $user_id;
         $data['ordertime'] = time();
@@ -64,10 +79,11 @@ class OrderController extends HomeBaseController
         $order_id = Db::name('order')->insertGetId($data);
 
         $order_data = [];
-        foreach ($data['goods'] as $value) {
+        foreach ($data['goods'] as $key => $value) {
             $d = [
                 'order_id' => $order_id,
-                'product_id' => $value,
+                'product_id' => $key,
+                'amount' => $value,
             ];
             $order_data[] = $d;
         }
