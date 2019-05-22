@@ -13,6 +13,12 @@ class OrderController extends HomeBaseController
     {
         $user_id = cmf_get_current_user_id();
         $list = Db::name('order')->where('user_id', $user_id)->select();
+
+        foreach ($list as $key => $value) {
+            $result = Db::name('order_data')->where('order_id', $value['id'])->column('name');
+            $pro_name = implode('、', $result);
+            $list[$key]['pro_name'] = $pro_name;
+        }
         
         $this->assign('page', $list);
         return $this->fetch("/shop");
