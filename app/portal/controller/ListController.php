@@ -35,4 +35,22 @@ class ListController extends HomeBaseController
         return $this->fetch('/list');
     }
 
+    /***
+     * 根据id返回商品信息
+     */
+    public function getGoods()
+    {
+        $id = $this->request->param('id'); // 商品id列表
+        $id = explode(',', $id);
+        // $id = json_decode($id);
+
+        // 商品信息
+        $list = Db::name('product')
+            ->field('id, name, price, sales')
+            ->where('id', 'in', $id)
+            ->select();
+
+        return $list;
+    }
+
 }

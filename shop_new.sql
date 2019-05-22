@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1:3306
--- 生成日期： 2019-05-22 10:51:07
+-- 生成日期： 2019-05-22 14:24:45
 -- 服务器版本： 5.7.24
 -- PHP 版本： 7.2.14
 
@@ -43,6 +43,34 @@ CREATE TABLE IF NOT EXISTS `shop_address` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `shop_category`
+--
+
+DROP TABLE IF EXISTS `shop_category`;
+CREATE TABLE IF NOT EXISTS `shop_category` (
+  `id` int(50) NOT NULL AUTO_INCREMENT COMMENT '分类id',
+  `category_name` varchar(50) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '分类名',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COMMENT='分类表';
+
+--
+-- 转存表中的数据 `shop_category`
+--
+
+INSERT INTO `shop_category` (`id`, `category_name`) VALUES
+(1, '保湿'),
+(2, '面膜'),
+(3, '洗面奶'),
+(4, '补水'),
+(5, '香水'),
+(6, '眼霜'),
+(7, '口红'),
+(8, '护肤套装'),
+(9, 'BB霜');
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `shop_order`
 --
 
@@ -70,7 +98,8 @@ DROP TABLE IF EXISTS `shop_order_data`;
 CREATE TABLE IF NOT EXISTS `shop_order_data` (
   `id` int(255) NOT NULL COMMENT '自增id',
   `order_id` int(255) NOT NULL DEFAULT '0' COMMENT '订单id',
-  `product_id` int(255) NOT NULL COMMENT '商品id'
+  `product_id` int(255) NOT NULL COMMENT '商品id',
+  `amount` int(50) NOT NULL DEFAULT '0' COMMENT '商品个数'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='订单详情';
 
 -- --------------------------------------------------------
@@ -98,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `shop_product` (
   `id` int(255) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '商品id',
   `category_id` int(50) UNSIGNED NOT NULL DEFAULT '0' COMMENT '分类id',
   `name` varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '商品名',
-  `price` int(50) UNSIGNED NOT NULL DEFAULT '0' COMMENT '商品价格, 单位分',
+  `price` int(50) UNSIGNED NOT NULL DEFAULT '0' COMMENT '商品价格, 单位元',
   `sales` int(50) NOT NULL DEFAULT '0' COMMENT '销量',
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT '商品图片路径',
   `description` varchar(255) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '商品描述',
@@ -116,10 +145,10 @@ CREATE TABLE IF NOT EXISTS `shop_product` (
 --
 
 INSERT INTO `shop_product` (`id`, `category_id`, `name`, `price`, `sales`, `image`, `description`, `brand`, `model`, `category_name`, `efficacy`, `size`, `ps`) VALUES
-(1, 1, '理肤泉B5多效修护霜100ml', 19800, 49062, '__STATIC__/a1.png', '修护届的“神仙水”。理肤泉当家产品，海淘爆款。这款江湖了上流传已久的产品全新上市，为了让大家愉快的“挥霍”。这波大容量的设计诚意满满。', '理肤泉 (LA ROCHE-POSAY)', '100ml(702030467)；', '乳液', '保湿,修护肌肤,滋润,修护', '100ml', '因个人肤质不同，如有不适请立即停止使用。'),
-(2, 1, 'G&M绵羊油维生素E面霜 250g', 3500, 11128, '__STATIC__/a2.jpg', 'G&M绵羊油维生素E面霜 250g，到英国你不会错过the body shop，到美国你不会错过倩碧，到日本你无法错过资生堂，到澳洲你无法拒绝“G&M绵羊油”!夏去秋来，秋去冬来，换季糟心，皮肤干涩脱皮没形象，不敢伸手不敢露腿的日子真是受够了！开启肌肤水动力', 'G&M', '经典版，250g(702011001)；升级保湿新款，250g(702026236)；', '面霜', '保湿,修护肌肤,滋润,防冻裂', '250g', '因个人肤质不同，如有不适请立即停止使用。多款包装随机发！请放心购买！	由于产品版本不同，价格不同，介意者慎购！'),
-(3, 2, '蜂胶蜂蜜+水光针剂面膜套装20片', 11900, 11128, '__STATIC__/b1.jpg', '', '', '', '面膜', '保湿,修护肌肤,滋润,防冻裂', '20片', '因个人肤质不同，如有不适请立即停止使用。多款包装随机发！请放心购买！	由于产品版本不同，价格不同，介意者慎购！'),
-(4, 2, 'RAY蚕丝面膜35g*10 片', 3500, 11128, '__STATIC__/b2.png', '', '', '', '面膜', '保湿,修护肌肤,滋润,防冻裂', '35g*10 片', '因个人肤质不同，如有不适请立即停止使用。多款包装随机发！请放心购买！	由于产品版本不同，价格不同，介意者慎购！');
+(1, 1, '理肤泉B5多效修护霜100ml', 198, 49062, '__STATIC__/a1.png', '修护届的“神仙水”。理肤泉当家产品，海淘爆款。这款江湖了上流传已久的产品全新上市，为了让大家愉快的“挥霍”。这波大容量的设计诚意满满。', '理肤泉 (LA ROCHE-POSAY)', '100ml(702030467)；', '乳液', '保湿,修护肌肤,滋润,修护', '100ml', '因个人肤质不同，如有不适请立即停止使用。'),
+(2, 1, 'G&M绵羊油维生素E面霜 250g', 35, 11128, '__STATIC__/a2.jpg', 'G&M绵羊油维生素E面霜 250g，到英国你不会错过the body shop，到美国你不会错过倩碧，到日本你无法错过资生堂，到澳洲你无法拒绝“G&M绵羊油”!夏去秋来，秋去冬来，换季糟心，皮肤干涩脱皮没形象，不敢伸手不敢露腿的日子真是受够了！开启肌肤水动力', 'G&M', '经典版，250g(702011001)；升级保湿新款，250g(702026236)；', '面霜', '保湿,修护肌肤,滋润,防冻裂', '250g', '因个人肤质不同，如有不适请立即停止使用。多款包装随机发！请放心购买！	由于产品版本不同，价格不同，介意者慎购！'),
+(3, 2, '蜂胶蜂蜜+水光针剂面膜套装20片', 119, 11128, '__STATIC__/b1.jpg', '', '', '', '面膜', '保湿,修护肌肤,滋润,防冻裂', '20片', '因个人肤质不同，如有不适请立即停止使用。多款包装随机发！请放心购买！	由于产品版本不同，价格不同，介意者慎购！'),
+(4, 2, 'RAY蚕丝面膜35g*10 片', 35, 11128, '__STATIC__/b2.png', '', '', '', '面膜', '保湿,修护肌肤,滋润,防冻裂', '35g*10 片', '因个人肤质不同，如有不适请立即停止使用。多款包装随机发！请放心购买！	由于产品版本不同，价格不同，介意者慎购！');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
