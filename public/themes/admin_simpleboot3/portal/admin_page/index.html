@@ -15,7 +15,6 @@
                 <th width="100">ID</th>
                 <th>订单号</th>
                 <th width="80">总价</th>
-                <th width="160">下单用户</th>
                 <th width="80">状态</th>
                 <th width="120">操作</th>
             </tr>
@@ -27,7 +26,6 @@
                     <td>{$vo.id}</td>
                     <td>{$vo.order_num}</td>
                     <td>{$vo.total_price}</td>
-                    <td>{$vo.user_login}</td>
                     <td>待审核</td>
                     <td>
                         <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('AdminPage/add',array('id'=>$vo['id']))}">通过</a>

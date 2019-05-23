@@ -23,9 +23,6 @@ class AdminPageController extends AdminBaseController
         }
 
         $data = Db::name('order')
-            ->field('o.*, u.user_login')
-            ->alias('o')
-            ->join('user u', 'u.id=o.user_id')
             ->where('status', 0)
             ->paginate(10);
 

@@ -23,9 +23,6 @@ class AdminTagController extends AdminBaseController
         }
 
         $data = Db::name('order')
-            ->field('o.*, u.user_login')
-            ->alias('o')
-            ->join('user u', 'u.id=o.user_id')
             ->where('status', 2)
             ->paginate(10);
 
