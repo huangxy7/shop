@@ -49,6 +49,6 @@ class AdminTagController extends AdminBaseController
         $id = $this->request->param('id', 0, 'intval');
 
         Db::name('order')->where('id', $id)->where('status', 2)->update(['status'=>3]);
-        return $this->fetch();
+        $this->success('操作成功!');
     }
 }
