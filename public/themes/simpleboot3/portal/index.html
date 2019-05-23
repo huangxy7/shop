@@ -80,10 +80,10 @@
 </div>
 
 <div id="second"><!--聚美logo及搜索-->
-    <a ><img id="logo" src="__STATIC__/images/pic/logo.jpg"></a>
+    <a href="{:cmf_url('index/index')}"><img id="logo" src="__STATIC__/images/pic/logo.jpg"></a>
     <form action="{:cmf_url('portal/search/index')}" method="post">
     <input class="inputs"  name="keyword">
-    <input type="submit" value="搜索">
+    <input id="important" type="submit" value="搜索">
     </form>
     <a id="good-text" class="good"  href="#"></a>
     <a id="one" class="common" href="{:cmf_url('portal/list/index')}?id=1"><span>保湿</span></a>
@@ -117,7 +117,7 @@
 </div>
 
 <div id="fouth"><!--首页大广告-->
-    <a href="#">
+    <a href="index.html">
         <img id="fouth-img" src="__STATIC__/images/pic/fouth-img.jpg">
     </a>
 </div>
@@ -308,15 +308,19 @@
         height: 32px;
         border: 3px solid rgb(237, 20, 91);
         position: relative;
-        top: -80px;
-        left: 400px;
+        top: -41px;
+        left: 396px;
+    }
+    #important{
+        background-color: rgb(237, 20, 91);
+        color: white;
     }
     .inputs{
         width: 434px;
         height: 32px;
         border: 3px solid rgb(237, 20, 91);
         position: relative;
-        top: -80px;
+        top: -40px;
         left: 400px;
     }
     #search{
@@ -371,12 +375,12 @@
     }
     .common{
         position: relative;
-        top: -60px;
+        top: -38px;
         left: 400px;
     }
     .gap{
         position: relative;
-        top: -60px;
+        top: -38px;
         left: 400px;
     }
 
@@ -401,12 +405,16 @@
         position: relative;
         top: 10px;
     }
+    #third1{
+        position: relative;
+        top: -6px;
+    }
     .third2{
         margin-left: 60px;
         font-family: YouYuan;
         color: white;
         position: relative;
-        top:-10px;
+        top:2px;
         left: 120px;
     }
     #third-img{
