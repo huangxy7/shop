@@ -110,6 +110,56 @@ class ShopController extends HomeBaseController
     public function qinkong()
     {
         session('cart',null);
+        $user_id = cmf_get_current_user_id();
+        $listgo = Db::name('address')->where('user_id', $user_id)->select();
+
+        $this->assign('adds', $listgo);
+
+        $user_id = cmf_get_current_user_id();
+
+        $list = Db::name('address')->where('user_id', $user_id)->select();
+        $id = $this->request->param('id', 0, 'intval'); // 商品id
+
+        $goods = Db::name('product')->where('id', $id)->find();
+        $this->assign('goods', $goods);
+        $this->assign('page', $list);
+        if(!empty($goods)){
+            $a = array(session('cart'));
+            foreach ($a as $key){
+                if($key==$goods['id']){
+
+                    $id = session('cart');
+                    $id = explode(',', $id);
+                    // $id = json_decode($id);
+
+                    // 商品信息
+                    $lista = Db::name('product')
+                        ->field('id, name, price, sales')
+                        ->where('id', 'in', $id)
+                        ->select();
+                    // echo session('cart');
+                    $this->assign('list', $lista);
+                    return $this->fetch("/shop");
+                }else{
+                }
+            }
+            $b = session('cart');
+            $b = $b.",".$goods['id'];
+            session('cart',$b);
+            //  echo session('cart');
+        }
+        //查看所有购物车
+        $id = session('cart');
+        $id = explode(',', $id);
+        // $id = json_decode($id);
+
+        // 商品信息
+        $lista = Db::name('product')
+            ->field('id, name, price, sales')
+            ->where('id', 'in', $id)
+            ->select();
+        // echo session('cart');
+        $this->assign('list', $lista);
         return $this->fetch('/shop');
     }
 
