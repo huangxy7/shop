@@ -49,10 +49,8 @@ class PreferController extends HomeBaseController
     {
         $id = $this->request->param('id', 0, 'intval'); // 收藏id
         $user_id = cmf_get_current_user_id();
-
-        $result = Db::name('prefer')->where('id', $id)->where('user_id', $user_id)->delete();
-
-        $this->success('删除成功!');
+        $result = Db::name('prefer')->where('pro_id', $id)->where('user_id', $user_id)->delete();
+        return "fanhui".$result;
     }
 
 }
