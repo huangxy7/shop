@@ -161,13 +161,13 @@
 </div>
 
 <div id="logo"><!---logo-->
-    <a href="毕业设计主页.html">
-        <img id="logo1" src="C:\Users\ASUS E403\Desktop\bishe\logo.jpg">
+    <a href="{:cmf_url('index/index')}">
+        <img id="logo1" src="__STATIC__/images/pic/logo.jpg">
     </a>
 </div>
 
 <div id="mail">
-    <a id="mail1" href="邮寄地址管理.html">邮寄地址管理</a>
+    <a id="mail1" href="{:cmf_url('portal/address/index')}">邮寄地址管理</a>
 </div>
 
 <foreach name="page" item="vo">
@@ -177,17 +177,24 @@
     <span class="name" >价格：{$vo.total_price}</span>
     <span class="kuaidi" id="kuaidi1">物流到达点：{$vo.address}</span>
 <?php
-if($vo['status']=='0'){
+if($vo['status']=='1'){
 ?>
     <a  href="{:cmf_url('portal/order/refund')}?id={$vo.id}">退款</a>
     <?php
-    }if($vo['status']=='2'){
+    }elseif($vo['status']=='2'){
 ?>
     <a href="{:cmf_url('portal/order/undo')}?id={$vo.id}">撤销退款</a>
 <?php
-}else{
 ?>
-    <a href="{:cmf_url('portal/order/refund')}?id={$vo.id}">退款</a>
+<?php
+}elseif($vo['status']=='3'){
+?>
+<a href="{:cmf_url('portal/order/undo')}?id={$vo.id}">已退款</a>
+<?php
+}elseif($vo['status']=='0'){
+?>
+    <a >请等待接单</a>
+    <a href="{:cmf_url('portal/order/refund')}?id={$vo.id}">退单</a>
     <?php
     }
     ?>

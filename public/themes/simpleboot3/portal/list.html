@@ -20,10 +20,10 @@
 </div>
 
 <div id="second"><!--聚美logo及搜索-->
-    <a ><img id="logo" src="__STATIC__/images/pic/logo.jpg"></a>
+    <a href="{:cmf_url('index/index')}"><img id="logo" src="__STATIC__/images/pic/logo.jpg"></a>
     <form action="{:cmf_url('portal/search/index')}" method="post">
         <input class="inputs"  name="keyword">
-        <input type="submit" value="搜索">
+        <input id="search" type="submit" value="搜索">
     </form>
     <a id="good-text" class="good"  href="#"></a>
     <a id="one" class="common" href="{:cmf_url('portal/list/index')}?id=1"><span>保湿</span></a>
@@ -57,16 +57,17 @@
 </div>
 
 <div id="fouth"><!--商品-->
+    
     <foreach name="list" item="vo">
     <div id="fouth1" class="fouth-border">
         <a href="{:cmf_url('portal/article/index')}?id={$vo['id']}">
-            <img class="fouth-img" src="__STATIC__/images/pic/a1.png">
+            <img class="fouth-img" src="{:cmf_get_image_url($vo.image)}">
             <span id="fone" class="fouth-text">{$vo.name}</span>
         </a>
         <span class="fouth-subtext">月销{$vo.sales}</span>
         <span class="price">¥ {$vo.price} </span>
-        <a   class="fouth-text"  href="{:cmf_url('portal/shop/index')}?id={$vo['id']}">加购物车</a>
-        <a  class="fouth-text"  href="{:cmf_url('portal/prefer/add')}?id={$vo['id']}">收藏</a>
+        <a id="fourtext"  class="fouth-text"  href="{:cmf_url('portal/shop/index')}?id={$vo['id']}">加购物车</a>
+        <a id="foursubtext"  class="fouth-text"  href="{:cmf_url('portal/prefer/add')}?id={$vo['id']}">收藏</a>
     </div>
 
     </foreach>
@@ -147,22 +148,23 @@
         margin-left: 120px;
         margin-top: 32px;
     }
-    input{
-        width: 100px;
+    .inputs{
+        width: 434px;
         height: 32px;
         border: 3px solid rgb(237, 20, 91);
         position: relative;
-        top: -80px;
+        top: -40px;
         left: 400px;
     }
     #search{
         width: 100px;
-        height: 34px;
+        height: 32px;
+        color: white;
         background-color: rgb(237, 20, 91);
         border: 3px solid rgb(237, 20, 91);
         position: relative;
-        top: -64px;
-        left: 840px;
+        top: -41px;
+        left: 396px;
     }
     #sub-search{
         margin-top: 13px;
@@ -192,16 +194,13 @@
     }
     .common{
         position: relative;
-        top: -60px;
+        top: -38px;
         left: 400px;
     }
     .gap{
         position: relative;
-        top: -60px;
+        top: -38px;
         left: 400px;
-    }
-    #one{
-        color: rgb(241, 15, 89);
     }
 
     #third{
@@ -221,12 +220,16 @@
         position: relative;
         top: 10px;
     }
+    #third1{
+        position: relative;
+        top: -6px;
+    }
     .third2{
         margin-left: 60px;
         font-family: YouYuan;
         color: white;
         position: relative;
-        top:-10px;
+        top:2px;
         left: 120px;
     }
     #third-img{
@@ -256,7 +259,13 @@
         margin-right: 30px;
         margin-left: 10px;
         position: relative;
-        top: -40px;
+        top: 10px;
+    }
+    #fourtext{
+        margin-left: 140px;
+    }
+    #foursubtext{
+        margin-left: 60px;
     }
     .fouth-subtext{
         font-size: 18px;
@@ -264,17 +273,19 @@
         margin-right: 20px;
         color: rgb(102,102,102);
         position: relative;
-        top: -40px;
+        top: 10px;
     }
     .price{
-        font-size:30px;
+        font-size:24px;
         color: rgb(237, 20, 91);
         position: relative;
-        top:-40px;
+        top:10px;
     }
     .fouth-buttons{
         color: white;
         width: 100px;
+        height: 30px;
+        border:1px solid rgb(237, 20, 91);
         background-color: rgb(237, 20, 91);
         position: relative;
         top: -44px;

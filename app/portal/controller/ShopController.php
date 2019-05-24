@@ -56,7 +56,7 @@ class ShopController extends HomeBaseController
 
         // 商品信息
         $lista = Db::name('product')
-            ->field('id, name, price, sales')
+            ->field('id, name, price, sales,image')
             ->where('id', 'in', $id)
             ->select();
        // echo session('cart');
