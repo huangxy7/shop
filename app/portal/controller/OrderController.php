@@ -51,7 +51,7 @@ class OrderController extends HomeBaseController
             ->join('product p', 'o.product_id = p.id')
             ->where('order_id', $id)
             ->select();
-        
+
         $this->assign('info', $info);
         return $this->fetch("/order");
     }
@@ -63,6 +63,7 @@ class OrderController extends HomeBaseController
      */
     public function add()
     {
+
         $goods = $this->request->param('goods', 0, 'intval'); // 商品列表
         if (empty($goods)) {
             $this->error('请添加商品');
@@ -89,7 +90,7 @@ class OrderController extends HomeBaseController
         //     $total_price = $total_price + $price * $value;
         // }
         $total_price = Db::name('product')->where('id', $goods)->value('price');
-        
+
         $data['user_id'] = $user_id;
         $data['ordertime'] = time();
         $data['order_num'] = $order_num;
@@ -113,10 +114,38 @@ class OrderController extends HomeBaseController
             'amount' => 1,
         ];
         Db::name('order_data')->insert($order_data);
-
-        return $this->fetch("/index");
+        $this->delshop($goods);
+        return $this->success('支付成功','portal/shop/index');
     }
 
+    public function delshop($id){
+        //获取购物车中的所有商品id
+        $listshop = session("cart");
+        //转化为数组
+        $listshop = explode(",", $listshop);
+        //去掉相同的值
+        $listshop = array_unique($listshop);
+
+        //重新定义索引
+        $listshop = array_values($listshop);
+
+        //遍历去掉选中的值
+        for($i=0;$i<count($listshop);$i++){
+
+            if ($listshop[$i] ==$id){
+
+                unset($listshop[$i]);
+            }
+        }
+        //重新定义索引
+        $listshop = array_values($listshop);
+        $newlist = '';
+        for($j=0;$j<count($listshop);$j++){
+            $newlist = $newlist.",".$listshop[$j];
+        }
+        //更新数据后重新存进购物车
+        session("cart",$newlist);
+    }
     /**
      * 用户退货退款
      * 传: 订单id
@@ -151,7 +180,7 @@ class OrderController extends HomeBaseController
             ->update([
                 'status' => 1,
             ]);
-        
+
         $this->success('撤销申请成功!');
     }
 

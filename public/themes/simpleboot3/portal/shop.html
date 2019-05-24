@@ -226,7 +226,7 @@
     </tr>
     </thead>
     <tbody>
-   
+
     <foreach name="list" item="vo">
     <tr class="trclass">
         <td class="tdone xuhao" id="{$vo.id}">{$vo.id}</td>
@@ -235,7 +235,7 @@
         <td class="tdthree"><span class="jiajie"><span class="num" name="num" >1</span></span></td>
         <td class="tdfour"><span>单价：</span><span class="unit">{$vo.price}</span></td>
         <td class="tdfive"><span>小计：</span><span class="subtal">{$vo.price}</span></td>
-        <td class="tdsix"><a href="{:cmf_url('portal/shop/jiesuan')}?id={$vo['id']}">删除</a></td>
+        <td class="tdsix"><a href="{:cmf_url('portal/shop/delshop')}?id={$vo['id']}">删除</a></td>
             <td class="tdsixs"><a href="{:cmf_url('portal/shop/jiesuan')}?id={$vo['id']}">结算</a></td>
     </tr>
     </foreach>

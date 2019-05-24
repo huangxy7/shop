@@ -35,7 +35,7 @@ class ShopController extends HomeBaseController
 
                     // 商品信息
                     $lista = Db::name('product')
-                        ->field('id, name, price, sales')
+                        ->field('id, name, price, sales,image')
                         ->where('id', 'in', $id)
                         ->select();
                     // echo session('cart');
@@ -162,5 +162,46 @@ class ShopController extends HomeBaseController
         $this->assign('list', $lista);
         return $this->fetch('/shop');
     }
+    public function delshop(){
+        $id = $this->request->param('id');
+        //获取购物车中的所有商品id
+       $listshop = session("cart");
+       //转化为数组
+       $listshop = explode(",", $listshop);
+       //去掉相同的值
+        $listshop = array_unique($listshop);
 
+        //重新定义索引
+        $listshop = array_values($listshop);
+
+        //遍历去掉选中的值
+       for($i=0;$i<count($listshop);$i++){
+
+           if ($listshop[$i] ==$id){
+
+               unset($listshop[$i]);
+           }
+       }
+        //重新定义索引
+        $listshop = array_values($listshop);
+       $newlist = '';
+        for($j=0;$j<count($listshop);$j++){
+            $newlist = $newlist.",".$listshop[$j];
+        }
+       //更新数据后重新存进购物车
+
+        session("cart",$newlist);
+        //查询商品
+        $lista = Db::name('product')
+            ->field('id, name, price, sales,image')
+            ->where('id', 'in', $id)
+            ->select();
+        // echo session('cart');
+        //查询地址
+        $user_id = cmf_get_current_user_id();
+        $listgo = Db::name('address')->where('user_id', $user_id)->select();
+        $this->assign('adds', $listgo);
+        $this->assign('list', $lista);
+        return $this->success('删除成功','/portal/shop/index');
+    }
 }
